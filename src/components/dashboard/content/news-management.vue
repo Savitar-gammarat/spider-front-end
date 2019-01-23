@@ -115,6 +115,7 @@
 
 <script>
 import axios from 'axios'
+import SiteApi from '@/api/site'
 export default {
 	name: "news-management",
 	props:["fieldList"],
@@ -126,7 +127,8 @@ export default {
 		sites:null,
 		alterMode:false,
 		second:false,
-		siteList:null
+		siteList:null,
+		aaaaa:null
 	}),
 	methods:{
 		getNews(){

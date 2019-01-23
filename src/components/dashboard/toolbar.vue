@@ -13,7 +13,7 @@
 				<md-button class="md-icon-button" @click="showDialog = true">
 					<md-icon>person</md-icon>
 				</md-button>
-				<span v-if="login">您好！bigdingding</span>
+				<span v-if="ifLogin">您好！bigdingding</span>
 			</div>
 		</md-toolbar>
 		
@@ -54,17 +54,16 @@ export default {
 	data(){
 		return{
 			showInfo:false,
-			login:false,
 			showDialog:false,
 			form:{
 				name:null,
 				password:null
-			}
+			},
+			tokenTest:false
 		}
 	},
 	methods:{
 		showList(){
-			console.log("click")
 			this.showInfo = !this.showInfo
 			this.$emit('childEvent',this.showInfo)
 		},
@@ -72,14 +71,23 @@ export default {
 			this.showDialog = false
 			axios.post('auth',{	"username":this.form.name, "password":this.form.password})
 				.then(response=>{
-					axios.defaults.headers={
-						Authorization:"Bearer "+response.data.token
-					}
-					this.login = !this.login
+					this.tokenTest = true
+					sessionStorage.setItem("token", response.data.token)
 				})
 				.catch(error=>{
 					alert("fuck")
 				})
+		}
+	},
+	computed:{
+		ifLogin(){
+			if (this.tokenTest){
+				return true
+			} else if(sessionStorage.token){
+				return true
+			}else {
+				return false
+			}
 		}
 	}
 }
