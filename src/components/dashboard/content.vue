@@ -1,14 +1,20 @@
 <template>
 	<div :style="{width: changeWidth, left: changeLeft}" class="content">
 		<!--此组件不写内容-->
-		<router-view></router-view>
+		<router-view :fieldList="fieldList"></router-view>
 	</div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
 	name: "Content",
 	props:["showInfo"],
+	data(){
+		return{
+			fieldList:[],
+		}
+	},
 	computed:{
 		changeWidth(){
 			if (this.showInfo){
@@ -24,6 +30,16 @@ export default {
 				return 64 + "px"
 			}
 		}
+	},
+	methods:{
+		getFields(){
+			axios.get('field').then(response=>{
+				this.fieldList = response.data.fields_list
+			})
+		}
+	},
+	mounted() {
+		this.getFields()
 	}
 }
 </script>
