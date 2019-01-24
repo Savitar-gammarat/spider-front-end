@@ -5,7 +5,7 @@
 				<md-icon>menu</md-icon>
 			</md-button>
 			<span class="md-title">管理控制台</span>
-			
+
 			<div class="md-toolbar-section-end">
 				<md-button class="md-icon-button">
 					<md-icon>notifications</md-icon>
@@ -16,7 +16,7 @@
 				<span v-if="ifLogin">您好！bigdingding</span>
 			</div>
 		</md-toolbar>
-		
+
 		<div>
 			<md-dialog :md-active.sync="showDialog">
 				<div class="md-layout md-gutter" style="margin: 20px;">
@@ -24,10 +24,10 @@
 						<md-field >
 							<label for="first-name">First Name</label>
 							<md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.name" />
-						
+
 						</md-field>
 					</div>
-					
+
 					<div class="md-layout-item md-size-100">
 						<md-field>
 							<label for="last-name">Last Name</label>
@@ -36,7 +36,7 @@
 						</md-field>
 					</div>
 				</div>
-				
+
 				<md-dialog-actions>
 					<md-button class="md-primary" @click="showDialog = false">取消</md-button>
 					<md-button class="md-primary" @click="login_bigdingding">登录</md-button>
@@ -44,7 +44,7 @@
 			</md-dialog>
 		</div>
 	</div>
-	
+
 </template>
 
 <script>
@@ -72,10 +72,10 @@ export default {
 			axios.post('auth',{	"username":this.form.name, "password":this.form.password})
 				.then(response=>{
 					this.tokenTest = true
-					console.log(response.data)
 					sessionStorage.setItem("token", response.data.token)
 					sessionStorage.setItem("last_login", response.data.user.last_login)
-					this.$router.push({path:'/admin'})
+					sessionStorage.setItem("username", response.data.user.username)
+					this.$router.push({path:'/'})
 				})
 				.catch(error=>{
 					alert("fuck")
@@ -86,11 +86,7 @@ export default {
 		ifLogin(){
 			if (this.tokenTest){
 				return true
-			} else if(sessionStorage.token){
-				return true
-			}else {
-				return false
-			}
+			} else return !!sessionStorage.token;
 		}
 	}
 }
