@@ -81,6 +81,10 @@ export default {
 				.catch(error=>{
 					alert("fuck")
 				})
+			this.$api.counterApi.post()
+			axios.get('news',{params:{date:1}}).then(response=>{
+				this.$store.commit('setNews',response.data.publishList)
+			})
 		}
 	},
 	computed:{

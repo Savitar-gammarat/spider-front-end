@@ -6,15 +6,19 @@
 		<div class="md-layout-item md-size-50">
 			<infomation-card></infomation-card>
 		</div>
+		<div class="md-layout-item md-size-25">
+			<task-card></task-card>
+		</div>
 	</div>
 </template>
 
 <script>
 import UserCard from "@/components/dashboard/content/admin/user-card";
 import InfomationCard from "@/components/dashboard/content/admin/infomation-card";
+import TaskCard from "@/components/dashboard/content/admin/task-card";
 export default {
 	name: "admin",
-	components: {InfomationCard, UserCard}
+	components: {TaskCard, InfomationCard, UserCard}
 }
 </script>
 
