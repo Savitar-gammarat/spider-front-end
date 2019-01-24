@@ -6,6 +6,8 @@ import SitesManagement from './components/dashboard/content/sites-management'
 import FieldsManagement from './components/dashboard/content/fields-management'
 import UserManagement from './components/dashboard/content/user-management'
 import admin from './components/dashboard/content/admin'
+import toollbar from './components/dashboard/toolbar'
+import toollist from './components/dashboard/toollist'
 Vue.use(Router)
 
 export default new Router({
@@ -38,7 +40,7 @@ export default new Router({
 					component: FieldsManagement,
 				},
 				{
-					path:'admin',
+					path:'',
 					name:'admin',
 					component: admin,
 				}

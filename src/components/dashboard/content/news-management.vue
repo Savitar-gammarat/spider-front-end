@@ -115,7 +115,6 @@
 
 <script>
 import axios from 'axios'
-import SiteApi from '@/api/SiteApi'
 export default {
 	name: "news-management",
 	props:["fieldList"],

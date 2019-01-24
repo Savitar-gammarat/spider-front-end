@@ -2,15 +2,15 @@ import axios from '@/utils/request'
 
 export default {
 	get(){
-		axios.get('counter')
+		return axios.get('field')
 	},
 	patch(field_id, field_name){
-		axios.patch('counter',{field_id:field_id,field_name:field_name})
+		return axios.patch('field',{field_id:field_id,field_name:field_name})
 	},
 	put(field_name){
-		axios.put('field',{field_name:field_name})
+		return axios.put('field',{field_name:field_name})
 	},
 	delete(field_id){
-		axios.delete('field',{data:{field_id:field_id}})
+		return axios.delete('field',{data:{field_id:field_id}})
 	}
 }

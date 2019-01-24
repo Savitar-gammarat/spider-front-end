@@ -2,9 +2,9 @@ import axios from '@/utils/request'
 
 export default {
 	get(){
-		axios.get('search')
+		return axios.get('search')
 	},
 	post(search_message){
-		axios.post('search',{search_message:search_message})
+		return axios.post('search',{search_message:search_message})
 	}
 }

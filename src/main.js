@@ -8,7 +8,9 @@ import 'vue-material/dist/theme/default.css'
 import 'material-design-icons/iconfont/material-icons.css'
 import common from './utils/common'
 import axios from './utils/request'
+import api from './apiList'
 Vue.prototype.$common = common
+Vue.prototype.$api = api
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
 new Vue({

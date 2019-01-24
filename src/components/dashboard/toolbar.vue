@@ -72,7 +72,10 @@ export default {
 			axios.post('auth',{	"username":this.form.name, "password":this.form.password})
 				.then(response=>{
 					this.tokenTest = true
+					console.log(response.data)
 					sessionStorage.setItem("token", response.data.token)
+					sessionStorage.setItem("last_login", response.data.user.last_login)
+					this.$router.push({path:'/admin'})
 				})
 				.catch(error=>{
 					alert("fuck")

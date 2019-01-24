@@ -1,7 +1,7 @@
 import axios from '@/utils/request'
 
 export default {
-	getSites(){
+	get(){
 		return axios.get('site')
 	}
 }

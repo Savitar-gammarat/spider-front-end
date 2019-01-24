@@ -4,6 +4,7 @@ import router from '../../src/router'
 
 axios.defaults.timeout = 10000
 axios.defaults.baseURL = 'http://101.132.161.133:5000/api/v0/'
+// axios.defaults.baseURL = 'http://127.0.0.1:5000/api/v0/'
 
 axios.interceptors.request.use(
 	config => {
@@ -24,7 +25,7 @@ axios.interceptors.response.use(
 	},
 	error => {
 		if(error.response.status === 401) {
-			router.push({path: '/login'})
+			router.push({path: '/admin'})
 		}
 		return Promise.reject(error.response.data)
 	});
