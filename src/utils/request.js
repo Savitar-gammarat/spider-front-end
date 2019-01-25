@@ -25,7 +25,7 @@ axios.interceptors.response.use(
 	},
 	error => {
 		if(error.response.status === 401) {
-			router.push({path: '/admin'})
+			router.push({path: '/'})
 		}
 		return Promise.reject(error.response.data)
 	});

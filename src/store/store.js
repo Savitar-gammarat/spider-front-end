@@ -21,7 +21,9 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-
+		timeoutSetNews(context, news){
+			setTimeout(()=>{context.commit('setNews',news)},1000)
+		},
 	},
 	getters:{
 		// countNews:state => {

@@ -1,5 +1,6 @@
 <template>
 	<md-dialog :md-active.sync="showDialog" style="border-radius: 5px">
+		<md-progress-bar md-mode="indeterminate" style="height: 4px" v-if="progressing"></md-progress-bar>
 		<md-card style="padding: 5px">
 			<md-card-header>
 				<div class="md-headline">登录</div>
@@ -37,12 +38,13 @@
 			</md-card-content>
 
 			<md-card-actions>
-					<md-button class="md-primary" @click="showDialog = false">取消</md-button>
-					<md-button class="md-primary" @click="login_bigdingding">登录</md-button>
+				<md-button class="md-primary" @click="showDialog = false">取消</md-button>
+				<md-button class="md-primary" @click="login_bigdingding">登录</md-button>
 			</md-card-actions>
 
 		</md-card>
 	</md-dialog>
+
 </template>
 
 <script>
@@ -57,7 +59,8 @@ export default {
 				password:null
 			},
 			showDialog : false,
-			wrongPassword:false
+			wrongPassword:false,
+			progressing:false
 		}
 	},
 	validations:{
@@ -68,27 +71,31 @@ export default {
 	},
 	methods:{
 		login_bigdingding(){
-			if (!this.$v.$invalid) {
-				axios.post('auth',{	"username":this.form.name, "password":this.form.password})
-					.then(response=>{
-						this.$store.commit('setUserInfo',response.data)
-						sessionStorage.setItem("token", response.data.token)
-						sessionStorage.setItem("last_login", response.data.user.last_login)
-						sessionStorage.setItem("username", response.data.user.username)
-						this.$router.push({path:'/'})
-						this.showDialog = false
-						this.$api.counterApi.post()
-						axios.get('news',{params:{date:1}}).then(response=>{
-							this.$store.commit('setNews',response.data.publishList)
-							this.$store.commit('setNewsLength',response.data.length)
+			this.progressing = true
+			setTimeout(()=>{
+				if (!this.$v.$invalid) {
+					axios.post('auth',{	"username":this.form.name, "password":this.form.password})
+						.then(response=>{
+							this.$store.commit('setUserInfo',response.data)
+							sessionStorage.setItem("token", response.data.token)
+							sessionStorage.setItem("last_login", response.data.user.last_login)
+							sessionStorage.setItem("username", response.data.user.username)
+							this.$router.push({path:'/'})
+							this.showDialog = false
+							this.$api.counterApi.post()
+							axios.get('news',{params:{date:1}}).then(response=>{
+								this.$store.commit('setNews',response.data.publishList)
+								this.$store.commit('setNewsLength',response.data.length)
+							})
 						})
-					})
-					.catch(error=>{
-						this.wrongPassword = true
-					})
-			}else {
-				this.$v.$touch()
-			}
+						.catch(error=>{
+							this.wrongPassword = true
+						})
+				}else {
+					this.$v.$touch()
+				}
+				this.progressing = false
+			},1000)
 		},
 		ifShowDialog(){
 			this.showDialog = !this.showDialog

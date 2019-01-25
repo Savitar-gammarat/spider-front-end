@@ -30,7 +30,7 @@
 							<md-input v-model="limit" name="limit" id="limit" autocomplete="20"/>
 						</md-field>
 					</div>
-					
+
 					<div>
 						<md-datepicker v-model="selectedDate">
 							<label>Select date</label>
@@ -44,7 +44,7 @@
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="alterMode = !alterMode">{{alterModeString}}</md-button>
 					</div>
-					
+
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="patchNews">批量修改</md-button>
 					</div>
@@ -56,54 +56,46 @@
 			<md-table>
 				<md-table-toolbar>
 					<h1 class="md-title">News</h1>
-					<md-button class="md-primary md-raised" @click="nextPage">下一页</md-button>
+					<!--<md-button class="md-primary md-raised" @click="nextPage">下一页</md-button>-->
 				</md-table-toolbar>
 			</md-table>
 		</md-card>
 
-		<md-table md-card :style="{'max-height': this.$common.ScreenHeight(380)}" v-if="!alterMode">
-
-			<md-table-row>
+		<md-table md-card v-if="!alterMode" :style="{'max-height': this.$common.ScreenHeight(440)}">
+			<md-table-row v-if="ifHasNews">
 				<md-table-head md-numeric>ID</md-table-head>
 				<md-table-head>Title</md-table-head>
 				<md-table-head>Link</md-table-head>
-				<md-table-head>Click</md-table-head>
-				<md-table-head>Status</md-table-head>
-				<md-table-head>Site</md-table-head>
 				<md-table-head>Field</md-table-head>
 			</md-table-row>
 
 			<md-table-row v-for="i in news" :key="i.id">
 				<md-table-cell md-numeric style="width: 5%">{{i.id}}</md-table-cell>
-				<md-table-cell style="width: 20%">{{i.title}}</md-table-cell>
-				<md-table-cell style="width: 20%"><a :href="i.link" target="_blank">{{i.link | fixLength}}</a></md-table-cell>
-				<md-table-cell style="width: 5%">{{i.click}}</md-table-cell>
-				<md-table-cell style="width: 5%">{{i.status}}</md-table-cell>
-				<md-table-cell style="width: 5%">{{i.site_id}}</md-table-cell>
-				<md-table-cell style="width: 10%">{{i.selectedFields | ifSelected}}</md-table-cell>
+				<md-table-cell style="width: 40%">{{i.title}}</md-table-cell>
+				<md-table-cell style="width: 30%"><a :href="i.link" target="_blank">{{i.link | fixLength}}</a></md-table-cell>
+				<md-table-cell style="width: 20%">{{i.selectedFields | ifSelected}}</md-table-cell>
 			</md-table-row>
 		</md-table>
 
-		<md-table md-card :style="{'max-height': this.$common.ScreenHeight(380)}" v-if="alterMode">
+		<md-progress-bar md-mode="indeterminate" style="height: 4px;" v-if="loading"></md-progress-bar>
 
-			<md-table-row>
+		<md-table md-card v-if="alterMode" :style="{'max-height': this.$common.ScreenHeight(440)}">
+			<md-table-row v-if="ifHasNews">
 				<md-table-head md-numeric>ID</md-table-head>
-				<md-table-head>Title</md-table-head>
-				<md-table-head>Link</md-table-head>
-				<md-table-head>Click</md-table-head>
-				<md-table-head>Status</md-table-head>
-				<md-table-head>Site</md-table-head>
-				<md-table-head>Field</md-table-head>
+				<md-table-head >Title</md-table-head>
+				<md-table-head >Link</md-table-head>
+				<md-table-head >Field</md-table-head>
 			</md-table-row>
 
-			<md-table-row v-for="i in news" :key="i.id" v-if="!loading">
+			<md-table-row v-for="i in news" :key="i.id">
 				<md-table-cell md-numeric style="width: 5%">{{i.id}}</md-table-cell>
-				<md-table-cell style="width: 20%">{{i.title}}</md-table-cell>
-				<md-table-cell style="width: 20%"><a :href="i.link">{{i.link | fixLength}}</a></md-table-cell>
-				<md-table-cell style="width: 5%">{{i.click}}</md-table-cell>
-				<md-table-cell style="width: 5%">{{i.status}}</md-table-cell>
-				<md-table-cell style="width: 5%">{{i.site_id}}</md-table-cell>
-				<md-table-cell style="width: 10%">
+				<md-table-cell style="width: 40%">
+					<md-field>
+						<md-input name="title" id="title" v-model="i.title" />
+					</md-field>
+				</md-table-cell>
+				<md-table-cell style="width: 30%"><a :href="i.link">{{i.link | fixLength}}</a></md-table-cell>
+				<md-table-cell style="width: 20%">
 					<md-field>
 						<label for="field">fields</label>
 						<md-select v-model="i.selectedFields" name="field" id="field" multiple>
@@ -113,12 +105,7 @@
 				</md-table-cell>
 			</md-table-row>
 		</md-table>
-		
-		<div style="height: 500px;display: flex" v-if="loading">
-			<md-progress-spinner :md-diameter="70" :md-stroke="5" md-mode="indeterminate" style="margin: auto"></md-progress-spinner>
-		</div>
-		
-		
+
 		<md-dialog-alert
 				:md-active.sync="second"
 				md-title="Post created!"
@@ -128,11 +115,11 @@
 
 <script>
 import axios from 'axios'
+import {mapActions, mapState} from 'vuex'
 export default {
 	name: "news-management",
 	props:["fieldList"],
 	data: () => ({
-		news: [],
 		status:0,
 		site:1,
 		limit:10,
@@ -141,19 +128,19 @@ export default {
 		second:false,
 		siteList:null,
 		aaaaa:null,
-		selectedDate: Date.now(),
-		loading:true
+		selectedDate: "",
+		loading:false
 	}),
 	methods:{
+		...mapActions(['timeoutSetNews']),
 		getNews(){
+			this.loading = true
+			this.$store.commit('setNews',[])
 			axios.get('news',{params:{status:this.status, site_id:this.site, limit:this.limit}})
 				.then(response=>{
-					this.news = response.data.publishList.all_news
-					// this.news.forEach(value => {
-					// 	value["selectedFields"] = []
-					// })
+					setTimeout(()=>{this.loading = false},500)
+					this.timeoutSetNews(response.data.publishList.all_news)
 				})
-			this.loading = false
 		},
 		getSites(){
 			axios.get('site').then(response=>{
@@ -170,19 +157,21 @@ export default {
 						.catch(error=>{
 							alert("身份过期")
 						})
+					this.$api.newsApi.put(value.id, value.title, value.link, value.site_id)
 				}
 			})
-			this.alterMode = false
+			this.nextPage()
 		},
 		nextPage(){
 			this.loading = true
-			this.news = null
-			axios.get('news',{params:{date:1}}).then(response=>{
-				this.$store.commit('setNews',response.data.publishList)
-				this.$store.commit('setNewsLength',response.data.length)
-				this.news = this.$store.state.news
-				this.loading = false
-			})
+			this.$store.commit('setNews',[])
+			setTimeout(()=>{
+				axios.get('news',{params:{date:1}}).then(response=>{
+					setTimeout(()=>{this.loading = false},500)
+					this.timeoutSetNews(response.data.publishList)
+					this.$store.commit('setNewsLength',response.data.length)
+				})
+			},500)
 		}
 	},
 	filters:{
@@ -205,19 +194,21 @@ export default {
 			}
 		}
 	},
-	computed:{
+	computed:mapState({
 		alterModeString(){
 			if (this.alterMode){
 				return "浏览模式"
 			}else {
 				return "修改模式"
 			}
+		},
+		news:state=>state.news,
+		ifHasNews(){
+			return this.news.length !== 0;
 		}
-	},
+	}),
 	mounted(){
 		this.getSites()
-		this.news = this.$store.state.news
-		this.loading = false
 	}
 }
 </script>
