@@ -10,7 +10,7 @@
 				<md-button class="md-icon-button">
 					<md-icon>notifications</md-icon>
 				</md-button>
-				<md-button class="md-icon-button" @click="showDialog = true">
+				<md-button class="md-icon-button" @click="toLogin">
 					<md-icon>person</md-icon>
 				</md-button>
 				<span v-if="ifLogin">您好！bigdingding</span>
@@ -18,39 +18,17 @@
 		</md-toolbar>
 
 		<div>
-			<md-dialog :md-active.sync="showDialog">
-				<div class="md-layout md-gutter" style="margin: 20px;">
-					<div class="md-layout-item md-size-100">
-						<md-field >
-							<label for="first-name">First Name</label>
-							<md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.name" />
-
-						</md-field>
-					</div>
-
-					<div class="md-layout-item md-size-100">
-						<md-field>
-							<label for="last-name">Last Name</label>
-							<md-input name="last-name" id="last-name" autocomplete="family-name" v-model="form.password" />
-
-						</md-field>
-					</div>
-				</div>
-
-				<md-dialog-actions>
-					<md-button class="md-primary" @click="showDialog = false">取消</md-button>
-					<md-button class="md-primary" @click="login_bigdingding">登录</md-button>
-				</md-dialog-actions>
-			</md-dialog>
+			<login ref="loginComponent"></login>
 		</div>
 	</div>
 
 </template>
 
 <script>
-import axios from 'axios'
+import Login from "@/components/login";
 export default {
 	name: "toolbar",
+	components: {Login},
 	data(){
 		return{
 			showInfo:false,
@@ -58,38 +36,22 @@ export default {
 			form:{
 				name:null,
 				password:null
-			},
-			tokenTest:false
+			}
 		}
 	},
 	methods:{
+		// show the slide bar
 		showList(){
 			this.showInfo = !this.showInfo
 			this.$emit('childEvent',this.showInfo)
 		},
-		login_bigdingding(){
-			this.showDialog = false
-			axios.post('auth',{	"username":this.form.name, "password":this.form.password})
-				.then(response=>{
-					this.tokenTest = true
-					this.$store.commit('setUserInfo',response.data)
-					sessionStorage.setItem("token", response.data.token)
-					sessionStorage.setItem("last_login", response.data.user.last_login)
-					sessionStorage.setItem("username", response.data.user.username)
-					this.$router.push({path:'/'})
-				})
-				.catch(error=>{
-					alert("fuck")
-				})
-			this.$api.counterApi.post()
-			axios.get('news',{params:{date:1}}).then(response=>{
-				this.$store.commit('setNews',response.data.publishList)
-			})
+		toLogin(){
+			this.$refs.loginComponent.ifShowDialog()
 		}
 	},
 	computed:{
 		ifLogin(){
-			if (this.tokenTest){
+			if (this.$store.state.userInfo){
 				return true
 			} else return !!sessionStorage.token;
 		}

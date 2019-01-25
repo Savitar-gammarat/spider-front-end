@@ -1,7 +1,7 @@
 <template>
 	<div style="margin: 20px">
 		<md-card style="padding: 30px;margin-bottom: 20px">
-			<h3>请不要输入检索条件，以下为您列出的即是需要修改的新闻，新闻太多没有全改完也可提交，系统会自动筛选，确定修改无误可以重新登录，即可删除已分类</h3>
+			<h3>请输入检索条件：</h3>
 
 			<div>
 				<div class="md-layout md-gutter">
@@ -56,6 +56,7 @@
 			<md-table>
 				<md-table-toolbar>
 					<h1 class="md-title">News</h1>
+					<md-button class="md-primary md-raised" @click="nextPage">下一页</md-button>
 				</md-table-toolbar>
 			</md-table>
 		</md-card>
@@ -95,7 +96,7 @@
 				<md-table-head>Field</md-table-head>
 			</md-table-row>
 
-			<md-table-row v-for="i in news" :key="i.id">
+			<md-table-row v-for="i in news" :key="i.id" v-if="!loading">
 				<md-table-cell md-numeric style="width: 5%">{{i.id}}</md-table-cell>
 				<md-table-cell style="width: 20%">{{i.title}}</md-table-cell>
 				<md-table-cell style="width: 20%"><a :href="i.link">{{i.link | fixLength}}</a></md-table-cell>
@@ -112,6 +113,12 @@
 				</md-table-cell>
 			</md-table-row>
 		</md-table>
+		
+		<div style="height: 500px;display: flex" v-if="loading">
+			<md-progress-spinner :md-diameter="70" :md-stroke="5" md-mode="indeterminate" style="margin: auto"></md-progress-spinner>
+		</div>
+		
+		
 		<md-dialog-alert
 				:md-active.sync="second"
 				md-title="Post created!"
@@ -134,7 +141,8 @@ export default {
 		second:false,
 		siteList:null,
 		aaaaa:null,
-		selectedDate: Date.now()
+		selectedDate: Date.now(),
+		loading:true
 	}),
 	methods:{
 		getNews(){
@@ -145,6 +153,7 @@ export default {
 					// 	value["selectedFields"] = []
 					// })
 				})
+			this.loading = false
 		},
 		getSites(){
 			axios.get('site').then(response=>{
@@ -164,6 +173,16 @@ export default {
 				}
 			})
 			this.alterMode = false
+		},
+		nextPage(){
+			this.loading = true
+			this.news = null
+			axios.get('news',{params:{date:1}}).then(response=>{
+				this.$store.commit('setNews',response.data.publishList)
+				this.$store.commit('setNewsLength',response.data.length)
+				this.news = this.$store.state.news
+				this.loading = false
+			})
 		}
 	},
 	filters:{
@@ -198,6 +217,7 @@ export default {
 	mounted(){
 		this.getSites()
 		this.news = this.$store.state.news
+		this.loading = false
 	}
 }
 </script>

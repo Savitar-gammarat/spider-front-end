@@ -1,6 +1,6 @@
 <template>
 	<md-card class="card" md-with-hover>
-		<div class="title">代办事项</div>
+		<div class="title">公告</div>
 		<div class="md-layout md-gutter">
 			<div class="md-layout-item" style="margin-left: 10px">
 				<div class="md-subhead" style="position: relative">
@@ -8,15 +8,15 @@
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
 					<span >今日待处理新闻数量：</span>
-					<span style="margin-left: 10px;font-weight: 800">{{countNews}}</span>
+					<span style="margin-left: 10px;font-weight: 800">{{length}}</span>
 				</div>
 				<br>
 				<div class="md-subhead" style="position: relative">
 					<span style="position: absolute;left: -20px;top: -3px;">
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
-					<span >此版本是最新测试版本，预计bug数：</span>
-					<span style="margin-left: 10px;font-weight: 800">5-10</span>
+					<span >此版本是最新测试版本，预计下次更新天数：</span>
+					<span style="margin-left: 10px;font-weight: 800">2-3天</span>
 				</div>
 			</div>
 		</div>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapState} from 'vuex'
 export default {
 	name: "task-card",
-	computed:{
-		...mapGetters(['countNews'])
-	}
+	computed:mapState({
+		length:state=>state.newsLength
+	})
 }
 </script>
 

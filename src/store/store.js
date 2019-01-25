@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		userInfo:null,
-		news:[]
+		news:[],
+		newsLength:null
 	},
 	mutations: {
 		setUserInfo(state, userInfo){
@@ -14,14 +15,17 @@ export default new Vuex.Store({
 		},
 		setNews(state, news){
 			state.news = news
+		},
+		setNewsLength(state, length){
+			state.newsLength = length
 		}
 	},
 	actions: {
 
 	},
 	getters:{
-		countNews:state => {
-			return state.news.length
-		}
+		// countNews:state => {
+		// 	return state.news.length
+		// }
 	}
 })
