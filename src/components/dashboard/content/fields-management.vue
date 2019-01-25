@@ -1,37 +1,33 @@
 <template>
 	<div style="margin: 20px">
-		<md-card style="padding: 30px;margin-bottom: 20px;">
+		<md-card style="padding: 30px;margin-bottom: 20px;width: 40%">
 
 			<h3>新增站点</h3>
 
 			<div class="md-layout md-gutter">
 
-				<div class="md-layout-item md-size-20">
+				<div class="md-layout-item md-size-30">
 					<md-field>
 						<label for="field">新增领域</label>
 						<md-input name="field" id="field" v-model="field" />
 					</md-field>
 				</div>
 
-				<div class="md-layout-item md-size-10">
+				<div class="md-layout-item md-size-30">
 					<md-button class="md-raised md-primary" style="width: 100%" @click="addField">添加</md-button>
 				</div>
 
-				<div class="md-layout-item md-size-10">
+				<div class="md-layout-item md-size-30">
 					<md-button class="md-raised md-accent" style="width: 100%" @click="deleteField">删除选中</md-button>
 				</div>
-				
-				<div class="md-layout-item">
-					<span>如需删除，请多点几下，看见当前选中有内容了再点删除即可</span>
-				</div>
-
 			</div>
+			<span>如需删除，请多点几下，看见当前选中有内容了再点删除即可</span>
 		</md-card>
+		
 
 		<md-table v-model="fieldList" md-card @md-selected="onSelect" style="width: 40%" :style="{'height': this.$common.ScreenHeight(320)}">
 			<md-table-toolbar>
 				<h1 class="md-title">Fields</h1><span>当前选中{{selected | showField}}</span>
-				
 			</md-table-toolbar>
 
 			<md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>

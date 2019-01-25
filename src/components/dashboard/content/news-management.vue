@@ -7,6 +7,13 @@
 				<div class="md-layout md-gutter">
 					<div class="md-layout-item md-size-15">
 						<md-field>
+							<label for="news_id">Id</label>
+							<md-input v-model="news_id" name="news_id" id="news_id"/>
+						</md-field>
+					</div>
+					
+					<div class="md-layout-item md-size-15">
+						<md-field>
 							<label for="status">Status</label>
 							<md-select v-model="status" name="status" id="status" md-dense>
 								<md-option value=0>未批注</md-option>
@@ -40,11 +47,7 @@
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="getNews">查询</md-button>
 					</div>
-
-					<div class="md-layout-item md-size-10">
-						<md-button class="md-raised md-primary" style="width: 100%" @click="alterMode = !alterMode">{{alterModeString}}</md-button>
-					</div>
-
+					
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="patchNews">批量修改</md-button>
 					</div>
@@ -56,7 +59,9 @@
 			<md-table>
 				<md-table-toolbar>
 					<h1 class="md-title">News</h1>
-					<!--<md-button class="md-primary md-raised" @click="nextPage">下一页</md-button>-->
+					<div class="md-layout-item md-size-10">
+						<md-button class="md-primary" style="width: 100%" @click="alterMode = !alterMode">{{alterModeString}}</md-button>
+					</div>
 				</md-table-toolbar>
 			</md-table>
 		</md-card>
@@ -105,11 +110,16 @@
 				</md-table-cell>
 			</md-table-row>
 		</md-table>
-
+		
 		<md-dialog-alert
 				:md-active.sync="second"
 				md-title="Post created!"
 				md-content="修改成功" />
+		
+		<md-dialog-alert
+				:md-active.sync="third"
+				md-title="error!"
+				md-content="数据库没有您要检索的新闻" />
 	</div>
 </template>
 
@@ -126,21 +136,35 @@ export default {
 		sites:null,
 		alterMode:false,
 		second:false,
+		third:false,
 		siteList:null,
 		aaaaa:null,
 		selectedDate: "",
-		loading:false
+		loading:false,
+		news_id:"慎重！此参数会无视其他参数"
 	}),
 	methods:{
 		...mapActions(['timeoutSetNews']),
 		getNews(){
 			this.loading = true
 			this.$store.commit('setNews',[])
-			axios.get('news',{params:{status:this.status, site_id:this.site, limit:this.limit}})
-				.then(response=>{
+			if (this.news_id === "慎重！此参数会无视其他参数" || this.news_id === "") {
+				axios.get('news',{params:{status:this.status, site_id:this.site, limit:this.limit}})
+					.then(response=>{
+						setTimeout(()=>{this.loading = false},500)
+						this.timeoutSetNews(response.data.publishList.all_news)
+					})
+			}else {
+				this.$api.searchApi.put(this.news_id).then(response=>{
 					setTimeout(()=>{this.loading = false},500)
-					this.timeoutSetNews(response.data.publishList.all_news)
+					this.timeoutSetNews(response.data.publishList)
+				}).catch(error=>{
+					setTimeout(()=>{
+						this.loading = false
+						this.third = true
+					},500)
 				})
+			}
 		},
 		getSites(){
 			axios.get('site').then(response=>{
