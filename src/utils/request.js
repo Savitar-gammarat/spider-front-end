@@ -2,7 +2,7 @@ import axios from 'axios'
 import {Promise} from 'es6-promise'
 import router from '../../src/router'
 
-axios.defaults.timeout = 10000
+// axios.defaults.timeout = 10000
 axios.defaults.baseURL = 'http://101.132.161.133:5000/api/v0/'
 // axios.defaults.baseURL = 'http://127.0.0.1:5000/api/v0/'
 
