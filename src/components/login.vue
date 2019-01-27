@@ -82,6 +82,7 @@ export default {
 							sessionStorage.setItem("username", response.data.user.username)
 							this.$router.push({path:'/'})
 							this.showDialog = false
+							
 							this.$api.counterApi.post()
 							axios.get('news',{params:{date:1}}).then(response=>{
 								this.$store.commit('setNews',response.data.publishList)

@@ -7,7 +7,8 @@ export default new Vuex.Store({
 	state: {
 		userInfo:null,
 		news:[],
-		newsLength:null
+		newsLength:null,
+		loginAnalysis:null
 	},
 	mutations: {
 		setUserInfo(state, userInfo){
@@ -18,6 +19,9 @@ export default new Vuex.Store({
 		},
 		setNewsLength(state, length){
 			state.newsLength = length
+		},
+		setLoginAnalysis(state, analysis){
+			state.loginAnalysis = analysis
 		}
 	},
 	actions: {

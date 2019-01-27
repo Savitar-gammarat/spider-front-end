@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/store'
+import echarts from 'echarts'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
@@ -10,6 +11,7 @@ import Vuelidate from 'vuelidate'
 import common from './utils/common'
 import axios from './utils/request'
 import api from './apiList'
+Vue.prototype.$echarts = echarts
 Vue.prototype.$common = common
 Vue.prototype.$api = api
 Vue.config.productionTip = false

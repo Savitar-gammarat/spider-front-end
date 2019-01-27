@@ -5,6 +5,7 @@ import newsApi from '@/api/NewsApi'
 import searchApi from '@/api/SearchApi'
 import siteApi from '@/api/SiteApi'
 import userApi from '@/api/UserApi'
+import loginAnalysisApi from '@/api/LoginAnalysisApi'
 
 export default {
 	authApi,
@@ -13,5 +14,6 @@ export default {
 	newsApi,
 	searchApi,
 	siteApi,
-	userApi
+	userApi,
+	loginAnalysisApi
 }

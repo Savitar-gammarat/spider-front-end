@@ -9,6 +9,9 @@
 		<div class="md-layout-item md-size-25">
 			<task-card></task-card>
 		</div>
+		<div>
+			<chart></chart>
+		</div>
 	</div>
 </template>
 
@@ -16,9 +19,10 @@
 import UserCard from "@/components/dashboard/content/admin/user-card";
 import InfomationCard from "@/components/dashboard/content/admin/infomation-card";
 import TaskCard from "@/components/dashboard/content/admin/task-card";
+import Chart from "@/components/dashboard/content/admin/chart";
 export default {
 	name: "admin",
-	components: {TaskCard, InfomationCard, UserCard}
+	components: {Chart, TaskCard, InfomationCard, UserCard}
 }
 </script>
 
