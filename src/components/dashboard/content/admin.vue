@@ -19,7 +19,7 @@
 import UserCard from "@/components/dashboard/content/admin/user-card";
 import InfomationCard from "@/components/dashboard/content/admin/infomation-card";
 import TaskCard from "@/components/dashboard/content/admin/task-card";
-import Chart from "@/components/dashboard/content/admin/chart";
+import Chart from "@/components/dashboard/content/admin/login-chart";
 export default {
 	name: "admin",
 	components: {Chart, TaskCard, InfomationCard, UserCard}
