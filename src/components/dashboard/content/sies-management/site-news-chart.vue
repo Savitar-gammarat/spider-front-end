@@ -1,20 +1,20 @@
 <template>
 	<div>
 		<div style="display: flex">
-			<div ref="fields-news-chart" style="margin: auto;" :style="this.$common.chartBox(320,700)"></div>
+			<div ref="sites-news-chart" style="margin: auto;" :style="this.$common.chartBox(320,700)"></div>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	name: "field-news-chart",
+	name: "site-news-chart",
 	data(){
 		return{
 			option:{
 				title : {
-					text: '各领域新闻数量',
-					subtext: '根据您对新闻所分类的领域统计',
+					text: '各站点新闻数量',
+					subtext: '根据数据库领域新闻数量分析',
 					x:'center'
 				},
 				tooltip : {
@@ -47,12 +47,12 @@ export default {
 	},
 	methods:{
 		getChart(){
-			this.$api.fieldNewsAnalysisApi.get().then(response=>{
-				this.$store.commit('setFieldAnalysis', response.data.fieldAnalysis)
-				this.option.legend.data = this.$store.state.fieldAnalysis.fields
-				this.option.series[0].data = this.$store.state.fieldAnalysis.data
+			this.$api.siteNewsAnalysisApi.get().then(response=>{
+				this.$store.commit('setSiteAnalysis', response.data.SiteAnalysis)
+				this.option.legend.data = this.$store.state.siteAnalysis.sites
+				this.option.series[0].data = this.$store.state.siteAnalysis.data
 				this.passData()
-				let myChart = this.$echarts.init(this.$refs["fields-news-chart"])
+				let myChart = this.$echarts.init(this.$refs["sites-news-chart"])
 				myChart.setOption(this.option)
 			})
 		},

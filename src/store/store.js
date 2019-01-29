@@ -9,7 +9,8 @@ export default new Vuex.Store({
 		news:[],
 		newsLength:null,
 		loginAnalysis:null,
-		fieldAnalysis:null
+		fieldAnalysis:null,
+		siteAnalysis:null
 	},
 	mutations: {
 		setUserInfo(state, userInfo){
@@ -26,6 +27,9 @@ export default new Vuex.Store({
 		},
 		setFieldAnalysis(state, analysis){
 			state.fieldAnalysis = analysis
+		},
+		setSiteAnalysis(state, analysis){
+			state.siteAnalysis = analysis
 		}
 	},
 	actions: {

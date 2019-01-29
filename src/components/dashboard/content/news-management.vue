@@ -11,7 +11,7 @@
 							<md-input v-model="news_id" name="news_id" id="news_id"/>
 						</md-field>
 					</div>
-					
+
 					<div class="md-layout-item md-size-15">
 						<md-field>
 							<label for="status">Status</label>
@@ -47,7 +47,7 @@
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="getNews">查询</md-button>
 					</div>
-					
+
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="patchNews">批量修改</md-button>
 					</div>
@@ -110,12 +110,12 @@
 				</md-table-cell>
 			</md-table-row>
 		</md-table>
-		
+
 		<md-dialog-alert
 				:md-active.sync="second"
 				md-title="Post created!"
 				md-content="修改成功" />
-		
+
 		<md-dialog-alert
 				:md-active.sync="third"
 				md-title="error!"

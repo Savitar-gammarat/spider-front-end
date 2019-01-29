@@ -2,7 +2,7 @@
 	<div style="margin: 20px">
 		<md-card style="padding: 30px;">
 
-			<h3>新增站点</h3>
+			<h3>领域管理</h3>
 
 			<div class="md-layout md-gutter">
 

@@ -24,7 +24,7 @@
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
 					<span >本次更新内容：</span>
-					<span style="margin-left: 10px;font-weight: 800">用户注册功能、领域图表、访问量图表</span>
+					<span style="margin-left: 10px;font-weight: 800">用户注册功能、领域图表、访问量图表、站点图表</span>
 				</div>
 			</div>
 		</div>
