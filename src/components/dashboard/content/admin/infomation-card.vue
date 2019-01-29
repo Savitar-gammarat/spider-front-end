@@ -10,8 +10,8 @@
 			</div>
 			<div class="md-layout-item md-size-33">
 				<information-tag>
-					<template slot="number">0</template>
-					<template slot="title">内容暂定</template>
+					<template slot="number">{{ifgetUserCounts}}</template>
+					<template slot="title">网站用户数</template>
 				</information-tag>
 			</div>
 			<div class="md-layout-item md-size-33">
@@ -31,13 +31,19 @@ export default {
 	components: {InformationTag},
 	data(){
 		return{
-			counts:0
+			counts:0,
+			userCounts:0
 		}
 	},
 	methods:{
 		getCounts(){
 			this.$api.counterApi.get().then(response=>{
 				this.counts = response.data.counts
+			})
+		},
+		getUserCounts(){
+			this.$api.userApi.get().then(response=>{
+				this.userCounts = response.data.counts
 			})
 		}
 	},
@@ -49,6 +55,17 @@ export default {
 			} else if(sessionStorage.token){
 				this.getCounts()
 				return this.counts
+			} else {
+				return 0
+			}
+		},
+		ifgetUserCounts(){
+			if (this.$store.state.userInfo){
+				this.getUserCounts()
+				return this.userCounts
+			} else if(sessionStorage.token){
+				this.getUserCounts()
+				return this.userCounts
 			} else {
 				return 0
 			}

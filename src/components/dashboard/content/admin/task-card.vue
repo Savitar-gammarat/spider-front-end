@@ -15,8 +15,16 @@
 					<span style="position: absolute;left: -20px;top: -3px;">
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
-					<span >此版本是最新测试版本，预计下次更新天数：</span>
-					<span style="margin-left: 10px;font-weight: 800">2-3天</span>
+					<span >此版本是最新测试版本，春节前估计还有一次更新：</span>
+					<span style="margin-left: 10px;font-weight: 800">待定</span>
+				</div>
+				<br>
+				<div class="md-subhead" style="position: relative">
+					<span style="position: absolute;left: -20px;top: -3px;">
+						<i class="material-icons" style="color: red">priority_high</i>
+					</span>
+					<span >本次更新内容：</span>
+					<span style="margin-left: 10px;font-weight: 800">用户注册功能、领域图表、访问量图表</span>
 				</div>
 			</div>
 		</div>

@@ -13,7 +13,7 @@
 				<md-button class="md-icon-button" @click="toLogin">
 					<md-icon>person</md-icon>
 				</md-button>
-				<span v-if="ifLogin">您好！bigdingding</span>
+				<span v-if="ifLogin">您好！{{this.username}}</span>
 			</div>
 		</md-toolbar>
 
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import Login from "@/components/login";
 export default {
 	name: "toolbar",
@@ -49,13 +50,23 @@ export default {
 			this.$refs.loginComponent.ifShowDialog()
 		}
 	},
-	computed:{
+	computed:mapState({
 		ifLogin(){
 			if (this.$store.state.userInfo){
 				return true
 			} else return !!sessionStorage.token;
-		}
-	}
+		},
+		username(){
+			if (sessionStorage.username) {
+				return sessionStorage.username
+			}else if(this.userInfo){
+				return this.userInfo.user.username
+			}else {
+				return "您尚未登录"
+			}
+		},
+		userInfo:state=>state.userInfo
+	})
 }
 </script>
 

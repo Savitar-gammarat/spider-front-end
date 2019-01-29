@@ -16,5 +16,8 @@ export default {
 	},
 	delete(username){
 		return axios.delete('user',{data:{username:username}})
+	},
+	get(){
+		return axios.get('user')
 	}
 }
