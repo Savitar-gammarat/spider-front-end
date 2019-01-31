@@ -14,9 +14,10 @@ export default new Router({
 	// base: process.env.BASE_URL,
 	routes: [
 		{
-			path:'/',
+			path:'/dashboard',
 			name:'dashboard',
 			component: dashboard,
+			redirect:"/dashboard/admin",
 			children:[
 				{
 					path:'news-management',
@@ -39,7 +40,7 @@ export default new Router({
 					component: FieldsManagement,
 				},
 				{
-					path:'',
+					path:'admin',
 					name:'admin',
 					component: admin,
 				}

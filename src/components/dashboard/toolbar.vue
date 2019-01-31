@@ -65,7 +65,7 @@ export default {
 				return "您尚未登录"
 			}
 		},
-		userInfo:state=>state.userInfo
+		userInfo:state=>state.user.userInfo
 	})
 }
 </script>

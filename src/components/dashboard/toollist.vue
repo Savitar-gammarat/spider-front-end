@@ -20,10 +20,10 @@ export default {
 	data(){
 		return{
 			icon_list:[
-				{id:0, icon: "settings", info: "网站概况", routes:'/'},
-				{id:1, icon: "live_help", info: "新闻管理", routes:'/news-management'},
-				{id:2, icon: "textsms", info: "站点管理", routes:'/sites-management'},
-				{id:3, icon: "message", info: "领域管理", routes:'/fields-management'},
+				{id:0, icon: "settings", info: "网站概况", routes:'/dashboard'},
+				{id:1, icon: "live_help", info: "新闻管理", routes:'/dashboard/news-management'},
+				{id:2, icon: "textsms", info: "站点管理", routes:'/dashboard/sites-management'},
+				{id:3, icon: "message", info: "领域管理", routes:'/dashboard/fields-management'},
 				// {id:4, icon: "group", info: "用户管理", routes:'/user-management'},
 				/*{id:5, icon: "show_chart", info: "数据管理", routes:'/'}*/
 			]
