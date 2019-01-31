@@ -170,13 +170,9 @@ export default {
 							sessionStorage.setItem("token", response.data.token)
 							sessionStorage.setItem("last_login", response.data.user.last_login)
 							sessionStorage.setItem("username", response.data.user.username)
-							this.$router.push({path:'/'})
+							this.$router.push({path:'/dashboard'})
 							this.showDialog = false
 							this.$api.counterApi.post()
-							axios.get('news',{params:{date:1}}).then(response=>{
-								this.$store.commit('business/setNews',response.data.publishList)
-								this.$store.commit('business/setNewsLength',response.data.length)
-							})
 						})
 						.catch(error=>{
 							this.wrongPassword = true
@@ -197,7 +193,7 @@ export default {
 							sessionStorage.setItem("token", response.data.token)
 							sessionStorage.setItem("last_login", response.data.user.last_login)
 							sessionStorage.setItem("username", response.data.user.username)
-							this.$router.push({path:'/'})
+							this.$router.push({path:'/dashboard'})
 							this.showDialog = false
 						})
 				}else {

@@ -193,7 +193,7 @@ export default {
 		active:false
 	}),
 	methods:{
-		...mapActions(['timeoutSetNews']),
+		...mapActions('business',['timeoutSetNews']),
 		getNews(){
 			this.loading = true
 			this.$store.commit('business/setNews',[])
