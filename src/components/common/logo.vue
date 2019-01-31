@@ -9,5 +9,10 @@ export default {
 </script>
 
 <style scoped>
-
+img{
+	width: 100%;
+	/*small bug*/
+	max-height: 50px;
+	max-width: 50px;
+}
 </style>

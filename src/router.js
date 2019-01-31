@@ -26,27 +26,42 @@ export default new Router({
 				{
 					path:'news-management',
 					name:'news-management',
-					component: NewsManagement
+					component: NewsManagement,
+					meta:{
+						title:"聚以析 | 管理控制平台"
+					}
 				},
 				{
 					path:'sites-management',
 					name:'sites-management',
-					component: SitesManagement
+					component: SitesManagement,
+					meta:{
+						title:"聚以析 | 管理控制平台"
+					}
 				},
 				{
 					path:'user-management',
 					name:'user-management',
-					component: UserManagement
+					component: UserManagement,
+					meta:{
+						title:"聚以析 | 管理控制平台"
+					}
 				},
 				{
 					path:'fields-management',
 					name:'fields-management',
-					component: FieldsManagement
+					component: FieldsManagement,
+					meta:{
+						title:"聚以析 | 管理控制平台"
+					}
 				},
 				{
 					path:'admin',
 					name:'admin',
-					component: admin
+					component: admin,
+					meta:{
+						title:"聚以析 | 管理控制平台"
+					}
 				}
 			]
 		},
@@ -55,16 +70,25 @@ export default new Router({
 			name:Frontpage,
 			component:Frontpage,
 			redirect:'/frontpage/news-search',
+			meta:{
+				title:"聚以析 | 新闻聚集分析平台"
+			},
 			children:[
 				{
 					path:'data-analysis',
 					name:'data-analysis',
 					component: DataAnalysis,
+					meta:{
+						title:"聚以析 | 新闻分析平台"
+					}
 				},
 				{
 					path:'news-search',
 					name:'news-search',
 					component: NewsSearch,
+					meta:{
+						title:"聚以析 | 新闻聚集平台"
+					}
 				}
 			]
 		},
