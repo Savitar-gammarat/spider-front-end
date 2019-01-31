@@ -1,45 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import consumer from './modules/consumer'
+import user from './modules/user'
+import business from './modules/business'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	state: {
-		userInfo:null,
-		news:[],
-		newsLength:null,
-		loginAnalysis:null,
-		fieldAnalysis:null,
-		siteAnalysis:null
-	},
-	mutations: {
-		setUserInfo(state, userInfo){
-			state.userInfo = userInfo
-		},
-		setNews(state, news){
-			state.news = news
-		},
-		setNewsLength(state, length){
-			state.newsLength = length
-		},
-		setLoginAnalysis(state, analysis){
-			state.loginAnalysis = analysis
-		},
-		setFieldAnalysis(state, analysis){
-			state.fieldAnalysis = analysis
-		},
-		setSiteAnalysis(state, analysis){
-			state.siteAnalysis = analysis
-		}
-	},
-	actions: {
-		timeoutSetNews(context, news){
-			setTimeout(()=>{context.commit('setNews',news)},1000)
-		},
-	},
-	getters:{
-		// countNews:state => {
-		// 	return state.news.length
-		// }
+	modules:{
+		user,
+		business,
+		consumer
 	}
 })

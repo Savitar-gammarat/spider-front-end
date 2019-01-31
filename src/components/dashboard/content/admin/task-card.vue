@@ -36,7 +36,7 @@ import {mapState} from 'vuex'
 export default {
 	name: "task-card",
 	computed:mapState({
-		length:state=>state.newsLength
+		length:state=>state.business.newsLength
 	})
 }
 </script>

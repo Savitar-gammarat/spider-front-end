@@ -89,16 +89,18 @@ export default {
 	methods:{
 		getChart(){
 			this.$api.loginAnalysisApi.get().then(response=>{
-				this.$store.commit('setLoginAnalysis', response.data.loginAnalysis)
-				this.option.series[0].data = this.$store.state.loginAnalysis.y
-				this.option.xAxis.data = this.$store.state.loginAnalysis.x
+				this.$store.commit('business/setLoginAnalysis', response.data.loginAnalysis)
+				this.option.series[0].data = this.y
+				this.option.xAxis.data = this.x
 				let myChart = this.$echarts.init(this.$refs["admin-chart"]);
 				myChart.setOption(this.option);
 			})
 		}
 	},
 	computed:mapState({
-		userInfo:state=>state.userInfo,
+		userInfo: state=>state.user.userInfo,
+		y:state=>state.business.loginAnalysis.y,
+		x:state=>state.business.loginAnalysis.x,
 		ifGet(){
 			if (this.userInfo) {
 				this.getChart()

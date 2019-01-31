@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
 	name: "field-news-chart",
 	data(){
@@ -48,9 +49,9 @@ export default {
 	methods:{
 		getChart(){
 			this.$api.fieldNewsAnalysisApi.get().then(response=>{
-				this.$store.commit('setFieldAnalysis', response.data.fieldAnalysis)
-				this.option.legend.data = this.$store.state.fieldAnalysis.fields
-				this.option.series[0].data = this.$store.state.fieldAnalysis.data
+				this.$store.commit('business/setFieldAnalysis', response.data.fieldAnalysis)
+				this.option.legend.data = this.y
+				this.option.series[0].data = this.x
 				this.passData()
 				let myChart = this.$echarts.init(this.$refs["fields-news-chart"])
 				myChart.setOption(this.option)
@@ -60,6 +61,10 @@ export default {
 			this.$emit('passData',this.option.legend.data)
 		}
 	},
+	computed:mapState({
+		y:state=>state.business.fieldAnalysis.fields,
+		x:state=>state.business.fieldAnalysis.data,
+	}),
 	mounted(){
 		this.getChart()
 	}

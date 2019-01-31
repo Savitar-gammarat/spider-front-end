@@ -26,6 +26,7 @@
 
 <script>
 import InformationTag from "@/components/dashboard/content/admin/information-tag";
+import {mapState} from 'vuex'
 export default {
 	name: "infomation-card",
 	components: {InformationTag},
@@ -47,9 +48,9 @@ export default {
 			})
 		}
 	},
-	computed:{
+	computed:mapState({
 		ifgetCounts(){
-			if (this.$store.state.userInfo){
+			if (this.userInfo){
 				this.getCounts()
 				return this.counts
 			} else if(sessionStorage.token){
@@ -60,7 +61,7 @@ export default {
 			}
 		},
 		ifgetUserCounts(){
-			if (this.$store.state.userInfo){
+			if (this.userInfo){
 				this.getUserCounts()
 				return this.userCounts
 			} else if(sessionStorage.token){
@@ -69,8 +70,9 @@ export default {
 			} else {
 				return 0
 			}
-		}
-	}
+		},
+		userInfo: state=>state.user.userInfo,
+	})
 }
 </script>
 

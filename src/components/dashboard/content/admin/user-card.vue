@@ -76,7 +76,7 @@ export default {
 				return ""
 			}
 		},
-		userInfo:state=>state.userInfo
+		userInfo:state=>state.user.userInfo
 	}),
 }
 </script>
