@@ -26,7 +26,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import Login from "@/components/login";
+import Login from "@/components/common/login";
 export default {
 	name: "toolbar",
 	components: {Login},
