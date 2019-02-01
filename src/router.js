@@ -12,6 +12,7 @@ import Frontpage from './views/frontpage'
 import DataAnalysis from './components/frontpage/data-analysis'
 import NewsSearch from './components/frontpage/news-search'
 import PublisherBlock from './components/frontpage/news-search/publisher-block'
+
 Vue.use(Router)
 
 export default new Router({
