@@ -1,7 +1,7 @@
 <template>
 	<div class="md-layout">
 		<div class="md-layout-item md-large-size-33 md-xlarge-size-33 md-medium-size-33 md-small-size-50 md-xsmall-size-100 publisher-block"
-			v-for="item in publishList" :key="item.id">
+			v-for="item in news" :key="item.id">
 			<publisher-card :item="item"></publisher-card>
 		</div>
 		<div v-if="!Load" class="loading" :style="{height:this.$common.ScreenHeight(400)}">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import PublisherCard from "@/components/frontpage/news-search/publisher-card";
 export default {
 	name: "publisher-block",
@@ -32,7 +32,8 @@ export default {
 		}
 	},
 	computed:mapState({
-		publishList:state=>state.consumer.publishList
+		publishList:state=>state.consumer.publishList,
+		...mapGetters('consumer',['news'])
 	}),
 	mounted() {
 		this.publish()

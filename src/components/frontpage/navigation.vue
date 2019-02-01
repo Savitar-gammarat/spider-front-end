@@ -14,10 +14,10 @@
 						<md-icon>accessibility</md-icon>
 						<span>用户登录</span>
 					</md-menu-item>
-					<md-menu-item>
-						<md-icon>settings</md-icon>
-						<span>新闻排序</span>
-					</md-menu-item>
+					<!--<md-menu-item>-->
+						<!--<md-icon>settings</md-icon>-->
+						<!--<span>新闻排序</span>-->
+					<!--</md-menu-item>-->
 					<md-menu-item>
 						<md-icon>translate</md-icon>
 						<span>数据分析</span>

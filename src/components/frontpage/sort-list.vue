@@ -23,7 +23,6 @@
 			</div>
 		</div>
 	</div>
-	
 </template>
 
 <script>
@@ -45,14 +44,24 @@ export default {
 				this.change = !this.change
 			} else{
 				this.$store.commit('consumer/setCustomization', this.items)
+				localStorage.setItem('customization',this.items)
 				this.change = !this.change
+			}
+		},
+		getLocalCustom(){
+			let customization = localStorage.getItem('customization').split(",")
+			if (customization) {
+				this.$store.commit('consumer/setCustomization', customization)
 			}
 		}
 	},
 	computed:mapState({
 		// publishList: state=>state.consumer.publishList,
 		...mapGetters('consumer',['sortList'])
-	})
+	}),
+	mounted(){
+		this.getLocalCustom()
+	}
 }
 </script>
 
