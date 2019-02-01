@@ -170,7 +170,7 @@ export default {
 							sessionStorage.setItem("token", response.data.token)
 							sessionStorage.setItem("last_login", response.data.user.last_login)
 							sessionStorage.setItem("username", response.data.user.username)
-							this.$router.push({path:'/dashboard'})
+							this.$router.push({path:'/'})
 							this.showDialog = false
 							this.$api.counterApi.post()
 						})

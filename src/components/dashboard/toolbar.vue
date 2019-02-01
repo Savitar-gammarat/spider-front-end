@@ -52,7 +52,7 @@ export default {
 	},
 	computed:mapState({
 		ifLogin(){
-			if (this.$store.state.userInfo){
+			if (this.userInfo){
 				return true
 			} else return !!sessionStorage.token;
 		},
