@@ -11,6 +11,7 @@ import admin from './components/dashboard/content/admin'
 import Frontpage from './views/frontpage'
 import DataAnalysis from './components/frontpage/data-analysis'
 import NewsSearch from './components/frontpage/news-search'
+import PublisherBlock from './components/frontpage/news-search/publisher-block'
 Vue.use(Router)
 
 export default new Router({
@@ -69,10 +70,7 @@ export default new Router({
 			path:'/frontpage',
 			name:Frontpage,
 			component:Frontpage,
-			redirect:'/frontpage/news-search',
-			meta:{
-				title:"聚以析 | 新闻聚集分析平台"
-			},
+			redirect:'/frontpage/news-search/publisher-block',
 			children:[
 				{
 					path:'data-analysis',
@@ -86,9 +84,16 @@ export default new Router({
 					path:'news-search',
 					name:'news-search',
 					component: NewsSearch,
-					meta:{
-						title:"聚以析 | 新闻聚集平台"
-					}
+					children:[
+						{
+							path:'publisher-block',
+							name:'publisher-block',
+							component: PublisherBlock,
+							meta:{
+								title:"聚以析 | 新闻分析平台"
+							}
+						}
+					]
 				}
 			]
 		},

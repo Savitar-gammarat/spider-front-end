@@ -1,5 +1,5 @@
 <template>
-	<div class="md-layout">
+	<div class="md-layout" style="background-color: white">
 		<div class="md-layout-item md-size-15"></div>
 		<div class="md-layout-item md-size-70">
 			<navigation></navigation>
