@@ -5,7 +5,7 @@
 			<h3 class="md-title" style="flex: 1">
 				<logo></logo>聚以析
 			</h3>
-			<span v-if="ifLogin">您好！{{this.username}}</span>
+			<span v-if="ifLogin">您好！{{this.userInfo.user.username}}</span>
 			<md-menu md-direction="bottom-end" :mdCloseOnClick="closeOnClick" :mdCloseOnSelect="closeOnSelect">
 				<md-icon md-menu-trigger style="cursor: pointer" class="md-size-2x">view_headline</md-icon>
 
@@ -18,7 +18,7 @@
 						<md-icon>accessibility</md-icon>
 						<span>用户登录</span>
 					</md-menu-item>
-					<md-menu-item v-if="ifLogin">
+					<md-menu-item v-if="ifLogin" @click="exitLogin">
 						<md-icon>accessibility</md-icon>
 						<span v-if="ifLogin">退出登录</span>
 					</md-menu-item>
@@ -56,6 +56,9 @@ export default {
 		},
 		goDashboard(){
 			this.$router.push({path:'/dashboard/admin'})
+		},
+		exitLogin(){
+			this.$refs.loginComponent.removeUserInfo()
 		}
 	},
 	computed:mapState({
@@ -64,25 +67,14 @@ export default {
 				return true
 			} else return !!sessionStorage.token;
 		},
-		username(){
-			if (sessionStorage.username) {
-				return sessionStorage.username
-			}else if(this.userInfo){
-				return this.userInfo.user.username
-			}else {
-				return "您尚未登录"
-			}
-		},
 		userInfo:state=>state.user.userInfo,
 		bigdingding(){
+			let a = this.userInfo
 			if (sessionStorage.username === "bigdingding"){
 				return true
-			} else return !!(this.userInfo && sessionStorage.username === "bigdingding");
+			} else return !!(a && sessionStorage.username === "bigdingding");
 		}
-	}),
-	created(){
-	
-	}
+	})
 }
 </script>
 

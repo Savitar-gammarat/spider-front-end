@@ -45,6 +45,10 @@ export default {
 			} else{
 				this.$store.commit('consumer/setCustomization', this.items)
 				localStorage.setItem('customization',this.items)
+				let username = sessionStorage.username
+				if (username){
+					this.$api.userApi.put(username,localStorage.customization)
+				}
 				this.change = !this.change
 			}
 		},
@@ -56,7 +60,6 @@ export default {
 		}
 	},
 	computed:mapState({
-		// publishList: state=>state.consumer.publishList,
 		...mapGetters('consumer',['sortList'])
 	}),
 	mounted(){

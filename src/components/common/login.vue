@@ -173,6 +173,10 @@ export default {
 							this.$router.push({path:'/'})
 							this.showDialog = false
 							this.$api.counterApi.post()
+							let customization = response.data.user.customization
+							if (customization){
+								this.$store.commit('consumer/setCustomization',customization.split(","))
+							}
 						})
 						.catch(error=>{
 							this.wrongPassword = true
@@ -213,6 +217,10 @@ export default {
 			}else {
 				this.$v.registerform.email.$touch()
 			}
+		},
+		removeUserInfo(){
+			this.$store.commit('user/setUserInfo',null)
+			sessionStorage.clear()
 		}
 	},
 	computed:{
