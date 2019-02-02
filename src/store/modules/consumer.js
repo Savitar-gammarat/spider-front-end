@@ -10,6 +10,13 @@ export default {
 		},
 		setCustomization(state,customization){
 			state.customization = customization
+		},
+		addNews(state,json){
+			state.publishList.forEach(value => {
+				if (value.id === json["site_id"]){
+					value.all_news = value.all_news.concat(json["more_news"])
+				}
+			})
 		}
 	},
 	actions: {

@@ -22,11 +22,11 @@
 						<md-icon>accessibility</md-icon>
 						<span v-if="ifLogin">退出登录</span>
 					</md-menu-item>
-					<md-menu-item>
+					<md-menu-item @click="goDataAnalysis">
 						<md-icon>translate</md-icon>
 						<span>数据分析</span>
 					</md-menu-item>
-					<md-menu-item>
+					<md-menu-item @click="goNewsSearch">
 						<md-icon>fiber_new</md-icon>
 						<span>查看新闻</span>
 					</md-menu-item>
@@ -59,6 +59,12 @@ export default {
 		},
 		exitLogin(){
 			this.$refs.loginComponent.removeUserInfo()
+		},
+		goDataAnalysis(){
+			this.$router.push({path:'/frontpage/data-analysis'})
+		},
+		goNewsSearch(){
+			this.$router.push({path:'/frontpage/news-search '})
 		}
 	},
 	computed:mapState({

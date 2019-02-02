@@ -1,6 +1,6 @@
 <template>
 	<div class="publisher-data-wrapper">
-		<div class="publisher-data">
+		<div class="publisher-data" @scroll="lazyLoading">
 			<!--传值后进行数据遍历-->
 			<div class="publisher-link" v-for="i in dataList" :key="i.id">
 				<div class="md-layout">
@@ -20,7 +20,28 @@
 <script>
 export default {
 	name: "publisher-data-wrapper",
-	props:["dataList"],
+	props:["dataList",'id'],
+	data(){
+		return{
+			datetime:null
+		}
+	},
+	methods:{
+		lazyLoading(){
+			let datetime1 = new Date().getTime()
+			let interval = datetime1 - this.datetime
+			if (interval >= 2000){
+				let news_id = this.dataList[this.dataList.length-1].id
+				console.log(news_id)
+				let site_id = this.id
+				this.$api.newsApi.post(site_id,news_id).then(response=>{
+					this.$store.commit('consumer/addNews',{site_id:site_id,more_news:response.data.more_news})
+				})
+
+			}
+			this.datetime = new Date().getTime()
+		},
+	},
 	filters:{
 		lastTime:function (value) {
 			if (!value) return ''

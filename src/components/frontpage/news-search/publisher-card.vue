@@ -9,7 +9,7 @@
 				<span :style="titleColor">{{item.name}}</span>
 			</template>
 		</publisher-header>
-		<publisher-data-wrapper :dataList="item.all_news"></publisher-data-wrapper>
+		<publisher-data-wrapper :dataList="item.all_news" :id="id"></publisher-data-wrapper>
 	</div>
 </template>
 
@@ -19,7 +19,7 @@ import PublisherDataWrapper from "@/components/frontpage/news-search/publisher-c
 export default {
 	name: "publisher-card",
 	components: {PublisherDataWrapper, PublisherHeader},
-	props:['item'],
+	props:['item','id'],
 	computed:{
 		titleColor(){
 			return{
