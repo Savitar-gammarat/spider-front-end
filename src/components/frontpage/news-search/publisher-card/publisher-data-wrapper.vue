@@ -32,7 +32,6 @@ export default {
 			let interval = datetime1 - this.datetime
 			if (interval >= 2000){
 				let news_id = this.dataList[this.dataList.length-1].id
-				console.log(news_id)
 				let site_id = this.id
 				this.$api.newsApi.post(site_id,news_id).then(response=>{
 					this.$store.commit('consumer/addNews',{site_id:site_id,more_news:response.data.more_news})

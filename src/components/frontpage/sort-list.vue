@@ -1,28 +1,55 @@
 <template>
-	<div class="sort-list">
-		<md-button @click="changeMode" v-if="!change" class="slickButton">
-			<md-icon>unfold_more</md-icon>
-			<br>自定义排序
-		</md-button>
-		<md-button @click="changeMode" v-if="change" class="slickButton">
-			<md-icon>unfold_more</md-icon>
-			<br>排序完成
-		</md-button>
-		<div v-if="change">
-			<div class="root">
-				<SlickList lockAxis="y" v-model="items">
-					<SlickItem v-for="(item, index) in items" :index="index" :key="index" class="slickItem">
-						{{item}}
-					</SlickItem>
-				</SlickList>
+	<div>
+		<div class="sort-list-absolute" v-if="!scrollSortList">
+			<md-button @click="changeMode" v-if="!change" class="slickButton">
+				<md-icon>unfold_more</md-icon>
+				<br>自定义排序
+			</md-button>
+			<md-button @click="changeMode" v-if="change" class="slickButton">
+				<md-icon>unfold_more</md-icon>
+				<br>排序完成
+			</md-button>
+			<div v-if="change">
+				<div class="root">
+					<SlickList lockAxis="y" v-model="items">
+						<SlickItem v-for="(item, index) in items" :index="index" :key="index" class="slickItem">
+							{{item}}
+						</SlickItem>
+					</SlickList>
+				</div>
+			</div>
+			<div v-if="!change">
+				<div class="slickItem" v-for="(item, index) in sortList" :index="index" :key="index">
+					<span>{{item}}</span>
+				</div>
 			</div>
 		</div>
-		<div v-if="!change">
-			<div class="slickItem" v-for="(item, index) in sortList" :index="index" :key="index">
-				<span>{{item}}</span>
+		<div class="sort-list-fixed" v-if="scrollSortList">
+			<md-button @click="changeMode" v-if="!change" class="slickButton">
+				<md-icon>unfold_more</md-icon>
+				<br>自定义排序
+			</md-button>
+			<md-button @click="changeMode" v-if="change" class="slickButton">
+				<md-icon>unfold_more</md-icon>
+				<br>排序完成
+			</md-button>
+			<div v-if="change">
+				<div class="root">
+					<SlickList lockAxis="y" v-model="items">
+						<SlickItem v-for="(item, index) in items" :index="index" :key="index" class="slickItem">
+							{{item}}
+						</SlickItem>
+					</SlickList>
+				</div>
+			</div>
+			<div v-if="!change">
+				<div class="slickItem" v-for="(item, index) in sortList" :index="index" :key="index">
+					<span>{{item}}</span>
+				</div>
 			</div>
 		</div>
 	</div>
+
 </template>
 
 <script>
@@ -34,7 +61,8 @@ export default {
 	data() {
 		return {
 			items: [],
-			change:false
+			change:false,
+			scroll:null
 		}
 	},
 	methods:{
@@ -57,14 +85,22 @@ export default {
 			if (customization) {
 				this.$store.commit('consumer/setCustomization', customization)
 			}
+		},
+		scrollEvent(){
+			let scroll = document.documentElement.scrollTop
+			return this.scroll = scroll;
 		}
 	},
 	computed:mapState({
-		...mapGetters('consumer',['sortList'])
+		...mapGetters('consumer',['sortList']),
+		scrollSortList(){
+			return this.scroll>=100
+		}
 	}),
 	mounted(){
 		this.getLocalCustom()
-	}
+		window.addEventListener('scroll',this.scrollEvent)
+	},
 }
 </script>
 
@@ -88,9 +124,14 @@ export default {
 	padding: 10px;
 	border: 1px solid #efefef;
 }
-.sort-list{
+.sort-list-absolute{
 	position: absolute;
 	top: 255px;
+	right: 50px;
+}
+.sort-list-fixed{
+	position: fixed;
+	top: 125px;
 	right: 50px;
 }
 </style>
