@@ -25,6 +25,11 @@ router.beforeEach((to, from, next) => {
 	}
 	next()
 })
+//全局过滤器文件
+import * as custom from './utils/filter'
+Object.keys(custom).forEach(key => {
+	Vue.filter(key, custom[key])
+})
 
 new Vue({
 	router,
