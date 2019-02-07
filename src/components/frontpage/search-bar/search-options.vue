@@ -1,5 +1,5 @@
 <template>
-	<div>options</div>
+	<div style="padding: 25px"></div>
 </template>
 
 <script>

@@ -7,6 +7,7 @@
 
 <script>
 import SearchBar from "@/components/frontpage/search-bar";
+import SortList from "@/components/frontpage/sort-list";
 export default {
 	name: "news-search",
 	components: {SearchBar}

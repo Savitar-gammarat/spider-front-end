@@ -1,7 +1,7 @@
 <template>
 	<div style="position: relative">
-		<input class="search" placeholder="Search Headlines..." v-model="search_message">
-		<md-button class="md-icon-button search-icon">
+		<input class="search" placeholder="Search Headlines..." v-model="search_message" @keydown.enter="search">
+		<md-button class="md-icon-button search-icon" @click="search">
 			<md-icon>search</md-icon>
 		</md-button>
 	</div>
@@ -13,6 +13,29 @@ export default {
 	data(){
 		return{
 			search_message:null,
+			last_message:null
+		}
+	},
+	methods:{
+		search(){
+			if (!(this.search_message === null || this.search_message === "")){
+				if (this.last_message !== this.search_message || this.last_message === null){
+					let route = this.$route.path
+					route = route.split("/")[2]
+					if (route === "news-search"){
+						this.$router.push({path:"/frontpage/news-search/publisher-list"})
+						this.$store.commit('consumer/setSearchNews',null)
+						this.$store.commit('consumer/changeSearchingStatus', true)
+						this.$api.searchApi.get(this.search_message).then(response=>{
+							this.$store.commit('consumer/setSearchNews',response.data.all_news)
+							this.$store.commit('consumer/changeSearchingStatus', false)
+							this.last_message = this.search_message
+						})
+					}else {
+						console.log("data-analysis")
+					}
+				}
+			}
 		}
 	}
 }

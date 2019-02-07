@@ -2,7 +2,9 @@ export default {
 	namespaced: true,
 	state: {
 		publishList:[],
-		customization: []
+		customization: [],
+		searchNews: null,
+		searching:false
 	},
 	mutations: {
 		setPublishList(state, publishList){
@@ -17,6 +19,12 @@ export default {
 					value.all_news = value.all_news.concat(json["more_news"])
 				}
 			})
+		},
+		setSearchNews(state, newsList){
+			state.searchNews = newsList
+		},
+		changeSearchingStatus(state,status){
+			state.searching = status
 		}
 	},
 	actions: {

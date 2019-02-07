@@ -9,15 +9,17 @@
 				<md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
 			</div>
 		</div>
+		<sort-list></sort-list>
 	</div>
 </template>
 
 <script>
 import {mapState, mapGetters} from 'vuex'
 import PublisherCard from "@/components/frontpage/news-search/publisher-card";
+import SortList from "@/components/frontpage/sort-list";
 export default {
 	name: "publisher-block",
-	components: {PublisherCard},
+	components: {SortList, PublisherCard},
 	data() {
 		return{
 			Load:false

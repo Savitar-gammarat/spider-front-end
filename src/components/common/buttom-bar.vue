@@ -17,7 +17,7 @@ export default {
 
 <style scoped>
 .copy-right{
-	margin: 60px auto 40px auto;
+	margin: 30px auto 20px auto;
 	text-align: center;
 }
 </style>
