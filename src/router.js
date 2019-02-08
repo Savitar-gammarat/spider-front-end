@@ -13,6 +13,7 @@ import DataAnalysis from './components/frontpage/data-analysis'
 import NewsSearch from './components/frontpage/news-search'
 import PublisherBlock from './components/frontpage/news-search/publisher-block'
 import PublisherList from './components/frontpage/news-search/publisher-list'
+import PublisherSite from './components/frontpage/news-search/publisher-site'
 
 Vue.use(Router)
 
@@ -99,6 +100,14 @@ export default new Router({
 							path:'publisher-list',
 							name:'publisher-list',
 							component: PublisherList,
+							meta:{
+								title:"聚以析 | 新闻分析平台"
+							}
+						},
+						{
+							path:'publisher-site/:id',
+							name:'publisher-site',
+							component:PublisherSite,
 							meta:{
 								title:"聚以析 | 新闻分析平台"
 							}

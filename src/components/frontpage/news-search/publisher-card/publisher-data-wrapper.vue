@@ -8,7 +8,7 @@
 						<span class="text">{{i.datetime | lastTime}}</span>
 					</div>
 					<div class="md-layout-item md-size-80">
-						<a :href="i.link" class="link" v-text="i.title"></a>
+						<a :href="i.link" class="link" v-text="i.title" target="_blank"></a>
 					</div>
 					<div class="md-layout-item md-size-5"></div>
 				</div>

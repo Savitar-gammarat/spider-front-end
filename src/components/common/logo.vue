@@ -1,5 +1,5 @@
 <template>
-	<img src="http://www.tamakooo.com/logos/logo.jpg" alt="logo">
+	<router-link to="/"><img src="http://www.tamakooo.com/logos/logo.jpg" alt="logo"></router-link>
 </template>
 
 <script>

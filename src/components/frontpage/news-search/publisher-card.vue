@@ -3,7 +3,7 @@
 		<publisher-header :color="item.color" :font="item.font">
 			<template slot="logo">
 				<!--插槽插图片-->
-				<img :src="item.logo" alt="">
+				<img :src="item.logo" alt="" @click="goSite(id)">
 			</template>
 			<template slot="title">
 				<span :style="titleColor">{{item.name}}</span>
@@ -20,6 +20,11 @@ export default {
 	name: "publisher-card",
 	components: {PublisherDataWrapper, PublisherHeader},
 	props:['item','id'],
+	methods:{
+		goSite(id){
+			this.$router.push({path:`/frontpage/news-search/publisher-site/${id}`})
+		}
+	},
 	computed:{
 		titleColor(){
 			return{
@@ -35,6 +40,9 @@ img{
 	width: 100%;
 	max-height: 100%;
 	max-width: 100%;
+}
+img:hover{
+	cursor: pointer;
 }
 .publisher-card{
 	border-radius: 5px;
