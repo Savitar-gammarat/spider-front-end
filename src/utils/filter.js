@@ -15,3 +15,13 @@ let lastTime = value =>{
 	return days + 'D'
 }
 export {lastTime}
+
+let fixlink = value =>{
+	let length = value.length
+	if (length > 70){
+		return value.substring(0,70) + "..."
+	}else {
+		return value
+	}
+}
+export {fixlink}

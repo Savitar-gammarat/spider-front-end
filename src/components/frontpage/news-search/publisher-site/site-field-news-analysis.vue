@@ -10,6 +10,11 @@
 						<md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
 					</div>
 				</div>
+				<div style="display: flex">
+					<div style="margin: auto">
+						<span class="md-title">因数据量较大，约需等待10秒钟</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -55,7 +60,7 @@ export default {
 		this.$refs["site-field-news-analysis"].style.width = w
 		let route = this.$route.path.split("/")
 		route = route[route.length-1]
-		let localOptions = JSON.parse(sessionStorage.getItem(this.$route.path))
+		let localOptions = JSON.parse(sessionStorage.getItem(`${this.$route.path}&fields`))
 		if (localOptions) {
 			this.option = localOptions.option
 			let myChart = this.$echarts.init(this.$refs["site-field-news-analysis"])
@@ -103,7 +108,7 @@ export default {
 						});
 					}
 				});
-				sessionStorage.setItem(this.$route.path, JSON.stringify({option:this.option}))
+				sessionStorage.setItem(`${this.$route.path}&fields`, JSON.stringify({option:this.option}))
 			})
 		}
 	}
