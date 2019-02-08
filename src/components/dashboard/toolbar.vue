@@ -7,8 +7,8 @@
 			<span class="md-title">管理控制台</span>
 
 			<div class="md-toolbar-section-end">
-				<md-button class="md-icon-button">
-					<md-icon>notifications</md-icon>
+				<md-button class="md-icon-button" @click="backhome">
+					<md-icon>home</md-icon>
 				</md-button>
 				<md-button class="md-icon-button" @click="toLogin">
 					<md-icon>person</md-icon>
@@ -48,6 +48,9 @@ export default {
 		},
 		toLogin(){
 			this.$refs.loginComponent.ifShowDialog()
+		},
+		backhome(){
+			this.$router.push({path:'/'})
 		}
 	},
 	computed:mapState({

@@ -5,7 +5,8 @@ export default {
 		newsLength:null,
 		loginAnalysis:null,
 		fieldAnalysis:null,
-		siteAnalysis:null
+		siteAnalysis:null,
+		preNews:null
 	},
 	mutations: {
 		setNews(state, news){
@@ -22,6 +23,9 @@ export default {
 		},
 		setSiteAnalysis(state, analysis){
 			state.siteAnalysis = analysis
+		},
+		setPreNews(state, length){
+			state.preNews = length
 		}
 	},
 	actions: {

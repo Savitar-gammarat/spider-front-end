@@ -28,6 +28,7 @@ export default {
 		axios.get('news',{params:{date:1}}).then(response=>{
 			this.$store.commit('business/setNews',response.data.publishList)
 			this.$store.commit('business/setNewsLength',response.data.length)
+			this.$store.commit('business/setPreNews',response.data.pre_length)
 		})
 	}
 }
