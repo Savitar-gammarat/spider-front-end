@@ -32,7 +32,14 @@ export default {
 							this.last_message = this.search_message
 						})
 					}else {
-						console.log("data-analysis")
+						this.$router.push({path:"/frontpage/data-analysis"})
+						this.$api.keywordsAnalysisApi.get(this.search_message).then(response=>{
+							this.$store.commit('consumer/setAnalysisOptions',response.data.data)
+							this.last_message = this.search_message
+							this.$router.push({path:"/frontpage/data-analysis/analysis-block"})
+						}).catch(error=>{
+							this.$router.push({path:"/frontpage/data-analysis/error"})
+						})
 					}
 				}
 			}

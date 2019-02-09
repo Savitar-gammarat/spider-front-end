@@ -61,7 +61,7 @@ export default {
 			this.$refs.loginComponent.removeUserInfo()
 		},
 		goDataAnalysis(){
-			this.$router.push({path:'/frontpage/data-analysis'})
+			this.$router.push({path:'/frontpage/data-analysis/analysis-block'})
 		},
 		goNewsSearch(){
 			this.$router.push({path:'/frontpage/news-search '})

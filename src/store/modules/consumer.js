@@ -4,7 +4,8 @@ export default {
 		publishList:[],
 		customization: [],
 		searchNews: null,
-		searching:false
+		searching:false,
+		analysisOptions:[]
 	},
 	mutations: {
 		setPublishList(state, publishList){
@@ -25,6 +26,9 @@ export default {
 		},
 		changeSearchingStatus(state,status){
 			state.searching = status
+		},
+		setAnalysisOptions(state, options){
+			state.analysisOptions = options
 		}
 	},
 	actions: {

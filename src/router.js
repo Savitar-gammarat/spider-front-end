@@ -14,7 +14,8 @@ import NewsSearch from './components/frontpage/news-search'
 import PublisherBlock from './components/frontpage/news-search/publisher-block'
 import PublisherList from './components/frontpage/news-search/publisher-list'
 import PublisherSite from './components/frontpage/news-search/publisher-site'
-
+import AnalysisBlock from './components/frontpage/data-analysis/analysis-block'
+import error from './components/frontpage/error'
 Vue.use(Router)
 
 export default new Router({
@@ -79,9 +80,24 @@ export default new Router({
 					path:'data-analysis',
 					name:'data-analysis',
 					component: DataAnalysis,
-					meta:{
-						title:"聚以析 | 新闻分析平台"
-					}
+					children:[
+						{
+							path:'analysis-block',
+							name:'analysis-block',
+							component:AnalysisBlock,
+							meta:{
+								title:"聚以析 | 新闻分析平台"
+							}
+						},
+						{
+							path:'error',
+							name:'error',
+							component:error,
+							meta:{
+								title:"聚以析 | 404"
+							}
+						}
+					]
 				},
 				{
 					path:'news-search',
