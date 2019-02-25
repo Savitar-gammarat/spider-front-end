@@ -24,30 +24,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="sort-list-fixed" v-if="scrollSortList">
-			<md-button @click="changeMode" v-if="!change" class="slickButton">
-				<md-icon>unfold_more</md-icon>
-				<br>自定义排序
-			</md-button>
-			<md-button @click="changeMode" v-if="change" class="slickButton">
-				<md-icon>unfold_more</md-icon>
-				<br>排序完成
-			</md-button>
-			<div v-if="change">
-				<div class="root">
-					<SlickList lockAxis="y" v-model="items">
-						<SlickItem v-for="(item, index) in items" :index="index" :key="index" class="slickItem">
-							{{item}}
-						</SlickItem>
-					</SlickList>
-				</div>
-			</div>
-			<div v-if="!change">
-				<div class="slickItem" v-for="(item, index) in sortList" :index="index" :key="index">
-					<span>{{item}}</span>
-				</div>
-			</div>
-		</div>
+		<!--<div class="sort-list-fixed" v-if="scrollSortList">-->
+			<!--<md-button @click="changeMode" v-if="!change" class="slickButton">-->
+				<!--<md-icon>unfold_more</md-icon>-->
+				<!--<br>自定义排序-->
+			<!--</md-button>-->
+			<!--<md-button @click="changeMode" v-if="change" class="slickButton">-->
+				<!--<md-icon>unfold_more</md-icon>-->
+				<!--<br>排序完成-->
+			<!--</md-button>-->
+			<!--<div v-if="change">-->
+				<!--<div class="root">-->
+					<!--<SlickList lockAxis="y" v-model="items">-->
+						<!--<SlickItem v-for="(item, index) in items" :index="index" :key="index" class="slickItem">-->
+							<!--{{item}}-->
+						<!--</SlickItem>-->
+					<!--</SlickList>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div v-if="!change">-->
+				<!--<div class="slickItem" v-for="(item, index) in sortList" :index="index" :key="index">-->
+					<!--<span>{{item}}</span>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
 
 </template>

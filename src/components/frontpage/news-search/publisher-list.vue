@@ -9,6 +9,9 @@
 					<div class="med">
 						<div class="md-layout" v-for="i in searchNews" :key="i.id" style="position: relative;margin-bottom: 40px">
 							<div>
+								<span>{{i.site_id | classifySite(siteList)}}</span>
+							</div>
+							<div>
 								<span>{{i.datetime | lastTime}}</span>
 							</div>
 							<a :href="i.link" target="_blank" style="text-decoration: none;position: absolute;left: 50px;">
@@ -34,11 +37,13 @@ export default {
 	name: "publisher-list",
 	data(){
 		return{
-
+			siteList:null
 		}
 	},
 	methods:{
-
+		getSites(){
+			this.$api.siteApi.get().then(response=>{this.siteList = response.data.sites_list})
+		}
 	},
 	computed:mapState({
 		searchNews:state=>state.consumer.searchNews,
@@ -53,7 +58,10 @@ export default {
 				return this.searchNews.length === 0
 			}
 		}
-	})
+	}),
+	mounted() {
+		this.getSites()
+	}
 }
 </script>
 

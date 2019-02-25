@@ -16,7 +16,7 @@
 			<div v-if="status === 3">
 				<span style="font-weight: 600;font-size: 19px">近期{{name}}新闻</span>
 				<div style="border-radius: 10px;padding: 5px 0 5px 10px">
-					<md-content class="md-scrollbar" :style="{'height':this.$common.ScreenHeight(395)}">
+					<md-content class="md-scrollbar" :style="{'height':this.$common.ScreenHeight(395),'min-height':'650px'}">
 						<div class="med">
 							<div class="md-layout" v-for="i in News" :key="i.id" style="position: relative;margin-bottom: 40px">
 								<div>

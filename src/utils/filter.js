@@ -25,3 +25,14 @@ let fixlink = value =>{
 	}
 }
 export {fixlink}
+
+let classifySite = (id, siteList) =>{
+	let name = null
+	siteList.forEach(value=>{
+		if (value.id === id){
+			name = value.name.toString()
+		}
+	})
+	return name
+}
+export {classifySite}
