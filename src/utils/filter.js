@@ -36,3 +36,14 @@ let classifySite = (id, siteList) =>{
 	return name
 }
 export {classifySite}
+
+let classifySiteImage = (id, siteList) =>{
+	let logo = null
+	siteList.forEach(value=>{
+		if (value.id === id){
+			logo = value.logo.toString()
+		}
+	})
+	return logo
+}
+export {classifySiteImage}

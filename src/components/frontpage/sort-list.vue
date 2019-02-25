@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="sort-list-absolute" v-if="!scrollSortList">
+		<!--<div class="sort-list-absolute" v-if="!scrollSortList">-->
+		<div class="sort-list-absolute">
 			<md-button @click="changeMode" v-if="!change" class="slickButton">
 				<md-icon>unfold_more</md-icon>
 				<br>自定义排序

@@ -1,6 +1,6 @@
 <template>
 	<div style="display: flex" :style="this.$common.chartBox(350,70)" v-if="ifGet">
-		<div ref="admin-chart" :style="this.$common.chartBox(550,270)" style="margin: auto"></div>
+		<div ref="admin-chart" :style="this.$common.chartBox(450,170)" style="margin: auto"></div>
 	</div>
 </template>
 

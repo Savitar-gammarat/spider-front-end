@@ -9,12 +9,13 @@
 					<div class="med">
 						<div class="md-layout" v-for="i in searchNews" :key="i.id" style="position: relative;margin-bottom: 40px">
 							<div>
-								<span>{{i.site_id | classifySite(siteList)}}</span>
+								<!--<span>{{i.site_id | classifySite(siteList)}}</span>-->
+                                <img :src="$options.filters.classifySiteImage(i.site_id,siteList)" alt="logo" style="height:25px">
 							</div>
-							<div>
+							<div style="position: absolute;left: 40px">
 								<span>{{i.datetime | lastTime}}</span>
 							</div>
-							<a :href="i.link" target="_blank" style="text-decoration: none;position: absolute;left: 50px;">
+							<a :href="i.link" target="_blank" style="text-decoration: none;position: absolute;left: 75px;">
 								<h3 class="med-title">{{i.title}}</h3>
 								<span class="med-link">{{i.link}}</span>
 							</a>
@@ -48,6 +49,7 @@ export default {
 	computed:mapState({
 		searchNews:state=>state.consumer.searchNews,
 		searching:state=>state.consumer.searching,
+        news:state=>state.consumer.news,
 		newsCapcacity(){
 			return this.searchNews === null && this.searching
 		},
@@ -57,7 +59,7 @@ export default {
 			} else {
 				return this.searchNews.length === 0
 			}
-		}
+		},
 	}),
 	mounted() {
 		this.getSites()
