@@ -47,3 +47,15 @@ let classifySiteImage = (id, siteList) =>{
 	return logo
 }
 export {classifySiteImage}
+
+let dateformat = date =>{
+	let d = new Date(date);
+	let year = d.getFullYear();
+	let month = d.getMonth() + 1;
+	let day = d.getDate() <10 ? '0' + d.getDate() : '' + d.getDate();
+	let hour = d.getHours();
+	let minutes = d.getMinutes();
+	let seconds = d.getSeconds();
+	return year+ '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+}
+export  {dateformat}

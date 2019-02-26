@@ -1,5 +1,22 @@
 <template>
 	<div>
+		<div class="md-layout">
+			<div class="md-layout-item" style="position: relative">
+				<div style="position: absolute">
+					<span>起始日期</span>
+				</div>
+				<md-datepicker id="start" v-model="start_time" />
+			</div>
+			<div class="md-layout-item" style="margin-left: 20px;position: relative">
+				<div style="position: absolute">
+					<span>结束日期</span>
+				</div>
+				<md-datepicker id="end" v-model="end_time" />
+			</div>
+			<div class="md-layout-item" style="margin-left: 20px;position: relative">
+				<md-button class="md-dense md-raised md-primary" style="position: absolute;top: 10px;" @click="analysis">查询</md-button>
+			</div>
+		</div>
 		<div style="display: flex;width: 100%;height: 650px" id="box">
 			<div ref="site-keyword-news-analysis" style="margin: auto;"></div>
 		</div>
@@ -56,13 +73,32 @@ export default {
 					{top: '55%',right:'20%',left:'5%'}
 				],
 				series: []
-			}
+			},
+			start_time:new Date().setDate(new Date().getDate()-7),
+			end_time: new Date()
+		}
+	},
+	methods:{
+		analysis(){
+			let route = this.$route.path.split("/")
+			route = route[route.length-1]
+			this.$api.keywordsAnalysisApi.post(route,this.$options.filters.dateformat(this.start_time), this.$options.filters.dateformat(this.end_time)).then(response=>{
+				let myChart = this.$echarts.init(this.$refs["site-keyword-news-analysis"])
+				myChart.clear();
+				// this.option.dataset.source = []
+				this.option.dataset.source = response.data.source
+				// this.option.series = []
+				this.option.series = response.data.series
+				this.option.title.text = response.data.site_name + "近期高频关键词"
+				myChart.setOption(this.option)
+				sessionStorage.setItem(`${this.$route.path}&keywords`, JSON.stringify({option:this.option}))
+			})
 		}
 	},
 	computed:{
 		show(){
 			return this.option.dataset.source.length === 0;
-		}
+		},
 	},
 	mounted(){
 		let h = document.getElementById("box").offsetHeight + "px"
@@ -77,7 +113,7 @@ export default {
 			let myChart = this.$echarts.init(this.$refs["site-keyword-news-analysis"])
 			myChart.setOption(this.option)
 		}else {
-			this.$api.keywordsAnalysisApi.post(route).then(response=>{
+			this.$api.keywordsAnalysisApi.post(route,this.start_time, this.end_time).then(response=>{
 				this.option.dataset.source = response.data.source
 				this.option.series = response.data.series
 				this.option.title.text = response.data.site_name + "近期高频关键词"

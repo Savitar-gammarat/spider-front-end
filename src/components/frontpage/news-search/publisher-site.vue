@@ -47,6 +47,8 @@ export default {
 			status:1,
 			News:null,
 			name:null,
+			start_time:new Date().setDate(new Date().getDate()-7),
+			end_time: new Date(),
 			option:{
 				title : {
 					text: '各站点近期新闻领域趋势分析',
@@ -108,7 +110,7 @@ export default {
 			this.News = response.data.publishList.all_news
 			this.name = response.data.publishList.name
 		})
-		this.$api.keywordsAnalysisApi.post(route).then(response=>{
+		this.$api.keywordsAnalysisApi.post(route,this.$options.filters.dateformat(this.start_time), this.$options.filters.dateformat(this.end_time)).then(response=>{
 			this.option.dataset.source = response.data.source
 			this.option.series = response.data.series
 			this.option.title.text = response.data.site_name + "近期高频关键词"
