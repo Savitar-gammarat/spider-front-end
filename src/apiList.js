@@ -8,6 +8,7 @@ import userApi from '@/api/UserApi'
 import loginAnalysisApi from '@/api/LoginAnalysisApi'
 import fieldNewsAnalysisApi from '@/api/FieldNewsAnalysisApi'
 import siteNewsAnalysisApi from '@/api/SiteNewsAnalysisApi'
+import keywordsAnalysisApi from '@/api/KeywordsAnalysisApi'
 export default {
 	authApi,
 	counterApi,
@@ -18,5 +19,6 @@ export default {
 	userApi,
 	loginAnalysisApi,
 	fieldNewsAnalysisApi,
-	siteNewsAnalysisApi
+	siteNewsAnalysisApi,
+	keywordsAnalysisApi
 }

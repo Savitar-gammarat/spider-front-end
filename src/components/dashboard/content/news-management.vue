@@ -12,7 +12,7 @@
 						</md-field>
 					</div>
 
-					<div class="md-layout-item md-size-15">
+					<div class="md-layout-item md-size-10">
 						<md-field>
 							<label for="status">Status</label>
 							<md-select v-model="status" name="status" id="status" md-dense>
@@ -22,7 +22,7 @@
 						</md-field>
 					</div>
 
-					<div class="md-layout-item md-size-15">
+					<div class="md-layout-item md-size-10">
 						<md-field>
 							<label for="site">Site</label>
 							<md-select v-model="site" name="site" id="site" md-dense>
@@ -31,7 +31,7 @@
 						</md-field>
 					</div>
 
-					<div class="md-layout-item md-size-15">
+					<div class="md-layout-item md-size-10">
 						<md-field>
 							<label for="limit">limit</label>
 							<md-input v-model="limit" name="limit" id="limit" autocomplete="20"/>
@@ -50,6 +50,10 @@
 
 					<div class="md-layout-item md-size-10">
 						<md-button class="md-raised md-primary" style="width: 100%" @click="patchNews">批量修改</md-button>
+					</div>
+
+					<div class="md-layout-item md-size-10">
+						<md-button class="md-raised md-accent" style="width: 100%" @click="active = true">删除选中</md-button>
 					</div>
 				</div>
 			</div>
@@ -84,26 +88,47 @@
 
 		<md-progress-bar md-mode="indeterminate" style="height: 4px;" v-if="loading"></md-progress-bar>
 
-		<md-table md-card v-if="alterMode" :style="{'max-height': this.$common.ScreenHeight(440)}">
-			<md-table-row v-if="ifHasNews">
-				<md-table-head md-numeric>ID</md-table-head>
-				<md-table-head >Title</md-table-head>
-				<md-table-head >Link</md-table-head>
-				<md-table-head >Field</md-table-head>
-			</md-table-row>
+		<!--<md-table md-card v-if="alterMode" :style="{'max-height': this.$common.ScreenHeight(440)}">-->
+			<!--<md-table-row v-if="ifHasNews">-->
+				<!--<md-table-head md-numeric>ID</md-table-head>-->
+				<!--<md-table-head >Title</md-table-head>-->
+				<!--<md-table-head >Link</md-table-head>-->
+				<!--<md-table-head >Field</md-table-head>-->
+			<!--</md-table-row>-->
 
-			<md-table-row v-for="i in news" :key="i.id">
-				<md-table-cell md-numeric style="width: 5%">{{i.id}}</md-table-cell>
-				<md-table-cell style="width: 40%">
+			<!--<md-table-row v-for="i in news" :key="i.id">-->
+				<!--<md-table-cell md-numeric style="width: 5%">{{i.id}}</md-table-cell>-->
+				<!--<md-table-cell style="width: 40%">-->
+					<!--<md-field>-->
+						<!--<md-input name="title" id="title" v-model="i.title" />-->
+					<!--</md-field>-->
+				<!--</md-table-cell>-->
+				<!--<md-table-cell style="width: 30%"><a :href="i.link">{{i.link | fixLength}}</a></md-table-cell>-->
+				<!--<md-table-cell style="width: 20%">-->
+					<!--<md-field>-->
+						<!--<label for="field">fields</label>-->
+						<!--<md-select v-model="i.selectedFields" name="field" id="field" multiple>-->
+							<!--<md-option v-for="i in fieldList" :key="i.id" :value="i.field">{{i.field}}</md-option>-->
+						<!--</md-select>-->
+					<!--</md-field>-->
+				<!--</md-table-cell>-->
+			<!--</md-table-row>-->
+		<!--</md-table>-->
+
+		<md-table v-model="news" v-if="alterMode" md-card @md-selected="onSelect" :style="{'max-height': this.$common.ScreenHeight(440)}">
+
+			<md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+				<md-table-cell md-label="Id" md-numeric style="width: 5%">{{item.id}}</md-table-cell>
+				<md-table-cell md-label="Title" style="width: 40%">
 					<md-field>
-						<md-input name="title" id="title" v-model="i.title" />
+						<md-input name="title" id="title" v-model="item.title" />
 					</md-field>
 				</md-table-cell>
-				<md-table-cell style="width: 30%"><a :href="i.link">{{i.link | fixLength}}</a></md-table-cell>
-				<md-table-cell style="width: 20%">
+				<md-table-cell md-label="Link" style="width: 30%"><a :href="item.link" target="_blank">{{item.link | fixLength}}</a></md-table-cell>
+				<md-table-cell md-label="Fields" style="width: 20%">
 					<md-field>
 						<label for="field">fields</label>
-						<md-select v-model="i.selectedFields" name="field" id="field" multiple>
+						<md-select v-model="item.selectedFields" name="field" id="field" multiple>
 							<md-option v-for="i in fieldList" :key="i.id" :value="i.field">{{i.field}}</md-option>
 						</md-select>
 					</md-field>
@@ -120,6 +145,28 @@
 				:md-active.sync="third"
 				md-title="error!"
 				md-content="数据库没有您要检索的新闻" />
+
+		<md-dialog :md-active.sync="active">
+			<md-dialog-title v-if="checkMessage">OPPS!内容似乎丢失了...请再选择一次试试看</md-dialog-title>
+
+			<md-content style="padding: 10px" v-if="!checkMessage">
+				<md-table v-model="selected">
+					<md-table-toolbar>
+						<h1 class="md-title">您确定要删除以下新闻吗？</h1>
+					</md-table-toolbar>
+
+					<md-table-row slot="md-table-row" slot-scope="{ item }">
+						<md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+						<md-table-cell md-label="Title" md-sort-by="title">{{ item.title }}</md-table-cell>
+					</md-table-row>
+				</md-table>
+			</md-content>
+
+			<md-dialog-actions>
+				<md-button class="md-primary" @click="active = false">取消</md-button>
+				<md-button class="md-primary" @click="deleteNews">确认删除</md-button>
+			</md-dialog-actions>
+		</md-dialog>
 	</div>
 </template>
 
@@ -141,13 +188,15 @@ export default {
 		aaaaa:null,
 		selectedDate: "",
 		loading:false,
-		news_id:"慎重！此参数会无视其他参数"
+		news_id:"慎重！此参数会无视其他参数",
+		selected:[],
+		active:false
 	}),
 	methods:{
-		...mapActions(['timeoutSetNews']),
+		...mapActions('business',['timeoutSetNews']),
 		getNews(){
 			this.loading = true
-			this.$store.commit('setNews',[])
+			this.$store.commit('business/setNews',[])
 			if (this.news_id === "慎重！此参数会无视其他参数" || this.news_id === "") {
 				axios.get('news',{params:{status:this.status, site_id:this.site, limit:this.limit}})
 					.then(response=>{
@@ -188,14 +237,33 @@ export default {
 		},
 		nextPage(){
 			this.loading = true
-			this.$store.commit('setNews',[])
+			this.$store.commit('business/setNews',[])
 			setTimeout(()=>{
 				axios.get('news',{params:{date:1}}).then(response=>{
 					setTimeout(()=>{this.loading = false},500)
 					this.timeoutSetNews(response.data.publishList)
-					this.$store.commit('setNewsLength',response.data.length)
+					this.$store.commit('business/setNewsLength',response.data.length)
 				})
 			},500)
+		},
+		onSelect (items) {
+			this.selected = items
+		},
+		deleteNews(){
+			this.selected.forEach(value => {
+				this.$api.newsApi.delete(value.id)
+			})
+			this.active = false
+			this.nextPage()
+		},
+		getAlternateLabel (count) {
+			let plural = ''
+
+			if (count > 1) {
+				plural = 's'
+			}
+
+			return `${count} new${plural} selected`
 		}
 	},
 	filters:{
@@ -226,9 +294,12 @@ export default {
 				return "修改模式"
 			}
 		},
-		news:state=>state.news,
+		news:state=>state.business.news,
 		ifHasNews(){
 			return this.news.length !== 0;
+		},
+		checkMessage(){
+			return this.selected.length === 0;
 		}
 	}),
 	mounted(){

@@ -17,6 +17,20 @@ Vue.prototype.$api = api
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(Vuelidate)
+
+router.beforeEach((to, from, next) => {
+	/* 路由发生变化修改页面title */
+	if (to.meta.title) {
+		document.title = to.meta.title
+	}
+	next()
+})
+//全局过滤器文件
+import * as custom from './utils/filter'
+Object.keys(custom).forEach(key => {
+	Vue.filter(key, custom[key])
+})
+
 new Vue({
 	router,
 	store,

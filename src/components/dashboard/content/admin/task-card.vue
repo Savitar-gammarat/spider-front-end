@@ -15,8 +15,16 @@
 					<span style="position: absolute;left: -20px;top: -3px;">
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
-					<span >此版本是最新测试版本，春节前估计还有一次更新：</span>
-					<span style="margin-left: 10px;font-weight: 800">待定</span>
+					<span >历史未处理新闻数量：</span>
+					<span style="margin-left: 10px;font-weight: 800">{{preLength}} 不要偷懒哦(╥﹏╥)  </span>
+				</div>
+				<br>
+				<div class="md-subhead" style="position: relative">
+					<span style="position: absolute;left: -20px;top: -3px;">
+						<i class="material-icons" style="color: red">priority_high</i>
+					</span>
+					<span >此版本是最新测试版本：</span>
+					<span style="margin-left: 10px;font-weight: 800">V0201929</span>
 				</div>
 				<br>
 				<div class="md-subhead" style="position: relative">
@@ -24,7 +32,7 @@
 						<i class="material-icons" style="color: red">priority_high</i>
 					</span>
 					<span >本次更新内容：</span>
-					<span style="margin-left: 10px;font-weight: 800">用户注册功能、领域图表、访问量图表、站点图表</span>
+					<span style="margin-left: 10px;font-weight: 800">用户自定义排序、领域趋势分析、热点关键字分析、滚动懒加载</span>
 				</div>
 			</div>
 		</div>
@@ -36,7 +44,8 @@ import {mapState} from 'vuex'
 export default {
 	name: "task-card",
 	computed:mapState({
-		length:state=>state.newsLength
+		length:state=>state.business.newsLength,
+		preLength:state=>state.business.preNews
 	})
 }
 </script>

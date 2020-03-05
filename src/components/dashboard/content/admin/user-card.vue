@@ -2,7 +2,7 @@
 	<md-card md-with-hover>
 		<md-card-header class="card-header">
 			<md-card-media class="md-medium">
-				<img src="http://www.itsyuekao.com/img/avator.cf8a477e.jpg" alt="Avatar" style="border-radius: 50%">
+				<img src="../../../../../src/icon/avator.png" alt="Avatar" style="border-radius: 50%">
 			</md-card-media>
 
 			<md-card-header-text style="display: flex">
@@ -76,7 +76,7 @@ export default {
 				return ""
 			}
 		},
-		userInfo:state=>state.userInfo
+		userInfo:state=>state.user.userInfo
 	}),
 }
 </script>

@@ -166,17 +166,17 @@ export default {
 				if (!this.$v.loginform.$invalid) {
 					axios.post('auth',{	"username":this.loginform.name, "password":this.loginform.password})
 						.then(response=>{
-							this.$store.commit('setUserInfo',response.data)
+							this.$store.commit('user/setUserInfo',response.data)
 							sessionStorage.setItem("token", response.data.token)
 							sessionStorage.setItem("last_login", response.data.user.last_login)
 							sessionStorage.setItem("username", response.data.user.username)
 							this.$router.push({path:'/'})
 							this.showDialog = false
 							this.$api.counterApi.post()
-							axios.get('news',{params:{date:1}}).then(response=>{
-								this.$store.commit('setNews',response.data.publishList)
-								this.$store.commit('setNewsLength',response.data.length)
-							})
+							let customization = response.data.user.customization
+							if (customization){
+								this.$store.commit('consumer/setCustomization',customization.split(","))
+							}
 						})
 						.catch(error=>{
 							this.wrongPassword = true
@@ -193,17 +193,12 @@ export default {
 				if (!this.$v.registerform.$invalid) {
 					this.$api.userApi.post(this.registerform.username, this.registerform.email, this.registerform.password)
 						.then(response=>{
-							this.$store.commit('setUserInfo',response.data)
+							this.$store.commit('user/setUserInfo',response.data)
 							sessionStorage.setItem("token", response.data.token)
 							sessionStorage.setItem("last_login", response.data.user.last_login)
 							sessionStorage.setItem("username", response.data.user.username)
-							this.$router.push({path:'/'})
+							this.$router.push({path:'/dashboard'})
 							this.showDialog = false
-							// this.$api.counterApi.post()
-							// axios.get('news',{params:{date:1}}).then(response=>{
-							// 	this.$store.commit('setNews',response.data.publishList)
-							// 	this.$store.commit('setNewsLength',response.data.length)
-							// })
 						})
 				}else {
 					this.$v.loginform.$touch()
@@ -222,6 +217,10 @@ export default {
 			}else {
 				this.$v.registerform.email.$touch()
 			}
+		},
+		removeUserInfo(){
+			this.$store.commit('user/setUserInfo',null)
+			sessionStorage.clear()
 		}
 	},
 	computed:{

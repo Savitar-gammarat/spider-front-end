@@ -7,8 +7,8 @@
 			<span class="md-title">管理控制台</span>
 
 			<div class="md-toolbar-section-end">
-				<md-button class="md-icon-button">
-					<md-icon>notifications</md-icon>
+				<md-button class="md-icon-button" @click="backhome">
+					<md-icon>home</md-icon>
 				</md-button>
 				<md-button class="md-icon-button" @click="toLogin">
 					<md-icon>person</md-icon>
@@ -26,7 +26,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import Login from "@/components/login";
+import Login from "@/components/common/login";
 export default {
 	name: "toolbar",
 	components: {Login},
@@ -48,11 +48,14 @@ export default {
 		},
 		toLogin(){
 			this.$refs.loginComponent.ifShowDialog()
+		},
+		backhome(){
+			this.$router.push({path:'/'})
 		}
 	},
 	computed:mapState({
 		ifLogin(){
-			if (this.$store.state.userInfo){
+			if (this.userInfo){
 				return true
 			} else return !!sessionStorage.token;
 		},
@@ -65,7 +68,7 @@ export default {
 				return "您尚未登录"
 			}
 		},
-		userInfo:state=>state.userInfo
+		userInfo:state=>state.user.userInfo
 	})
 }
 </script>
